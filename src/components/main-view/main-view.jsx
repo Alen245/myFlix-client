@@ -8,7 +8,7 @@ export const MainView = () => {
       id: 1,
       title: "The Shawshank Redemption",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/51noXi7M%2BFL._AC_.jpg",
+        "https://m.media-amazon.com/images/M/MV5BNzUzNzI0MjAxMl5BMl5BanBnXkFtZTgwMjQ2MjEyMDE@._V1_UX100_CR0,0,100,100_AL_.jpg",
       director: "Frank Darabont",
       genre: "Drama"
     },
@@ -16,7 +16,7 @@ export const MainView = () => {
       id: 2,
       title: "The Godfather",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/51v5ZpFyaFL._AC_.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTIyMTIxNjI5NF5BMl5BanBnXkFtZTcwNzQzNDM5MQ@@._V1_UX100_CR0,0,100,100_AL_.jpg",
       director: "Francis Ford Coppola",
       genre: "Drama"
     },
@@ -24,7 +24,7 @@ export const MainView = () => {
       id: 3,
       title: "The Dark Knight",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/51kK9C2QsoL._AC_.jpg",
+        "https://m.media-amazon.com/images/M/MV5BNjU0ZTkyMzktOTk2Zi00ZjRiLTk3MTAtM2VjNTViN2FmM2RjXkEyXkFqcGdeQXVyMTA3MzQ4MTc0._V1_UX100_CR0,0,100,100_AL_.jpg",
       director: "Christopher Nolan",
       genre: "Action"
     },
@@ -32,7 +32,7 @@ export const MainView = () => {
       id: 4,
       title: "Pulp Fiction",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/51CtRjKqsUL._AC_.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTkxMTA5OTAzMl5BMl5BanBnXkFtZTgwNjA5MDc3NjE@._V1_UX100_CR0,0,100,100_AL_.jpg",
       director: "Quentin Tarantino",
       genre: "Crime"
     },
@@ -40,7 +40,7 @@ export const MainView = () => {
       id: 5,
       title: "The Lord of the Rings: The Fellowship of the Ring",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/81WjGytzRgL._AC_SL1500_.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTU0MzY3NDM4NF5BMl5BanBnXkFtZTYwMDEyNDA5._V1_UX100_CR0,0,100,100_AL_.jpg",
       director: "Peter Jackson",
       genre: "Fantasy"
     }
