@@ -27290,57 +27290,35 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            id: 1,
-            title: "The Shawshank Redemption",
-            image: "https://m.media-amazon.com/images/M/MV5BNzUzNzI0MjAxMl5BMl5BanBnXkFtZTgwMjQ2MjEyMDE@._V1_UX100_CR0,0,100,100_AL_.jpg",
-            director: "Frank Darabont",
-            genre: "Drama"
-        },
-        {
-            id: 2,
-            title: "The Godfather",
-            image: "https://m.media-amazon.com/images/M/MV5BMTIyMTIxNjI5NF5BMl5BanBnXkFtZTcwNzQzNDM5MQ@@._V1_UX100_CR0,0,100,100_AL_.jpg",
-            director: "Francis Ford Coppola",
-            genre: "Drama"
-        },
-        {
-            id: 3,
-            title: "The Dark Knight",
-            image: "https://m.media-amazon.com/images/M/MV5BNjU0ZTkyMzktOTk2Zi00ZjRiLTk3MTAtM2VjNTViN2FmM2RjXkEyXkFqcGdeQXVyMTA3MzQ4MTc0._V1_UX100_CR0,0,100,100_AL_.jpg",
-            director: "Christopher Nolan",
-            genre: "Action"
-        },
-        {
-            id: 4,
-            title: "Pulp Fiction",
-            image: "https://m.media-amazon.com/images/M/MV5BMTkxMTA5OTAzMl5BMl5BanBnXkFtZTgwNjA5MDc3NjE@._V1_UX100_CR0,0,100,100_AL_.jpg",
-            director: "Quentin Tarantino",
-            genre: "Crime"
-        },
-        {
-            id: 5,
-            title: "The Lord of the Rings: The Fellowship of the Ring",
-            image: "https://m.media-amazon.com/images/M/MV5BMTU0MzY3NDM4NF5BMl5BanBnXkFtZTYwMDEyNDA5._V1_UX100_CR0,0,100,100_AL_.jpg",
-            director: "Peter Jackson",
-            genre: "Fantasy"
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    useEffect(()=>{
+        fetch("https://moviepi24.herokuapp.com/").then((response)=>response.json()).then((data)=>{
+            const moviesFromApi = data.Search.map((movie)=>{
+                return {
+                    id: movie._id,
+                    title: movie.Title,
+                    description: movie.Description,
+                    director: movie.Director,
+                    image: movie.ImagePath
+                };
+            });
+            setMovies(moviesFromApi);
+        });
+    }, []);
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 53,
+        lineNumber: 31,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 58,
+        lineNumber: 36,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27351,16 +27329,16 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 63,
+                lineNumber: 41,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 61,
+        lineNumber: 39,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "f7cvza6KGPdwL1CJ4W0rM5/1CYM=");
+_s(MainView, "PO+XgOji7E32nFJj3H5UPLPJ7w4=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27394,6 +27372,16 @@ const MovieCard = ({ movie , onMovieClick  })=>{
     }, undefined);
 };
 _c = MovieCard;
+MovieCard.propTypes = {
+    movie: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        director: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired
+    }).isRequired,
+    onMovieClick: PropTypes.func.isRequired
+};
 var _c;
 $RefreshReg$(_c, "MovieCard");
 
