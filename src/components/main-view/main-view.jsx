@@ -8,21 +8,25 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-  fetch("https://moviepi24.herokuapp.com/movies")
-    .then((response) => response.json())
-    .then((data) => {
-      const moviesFromApi = data.Search.map((movie) => {
-        return {
-          id: movie._id,
-          title: movie.Title,
-          description: movie.Description,
-          image: movie.ImagePath,
-        };
+    fetch("https://moviepi24.herokuapp.com/movies")
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => {
+          return {
+            id: movie._id,
+            title: movie.Title,
+            description: movie.Description,
+            image: movie.ImagePath,
+            genre: movie.Genre.Name,
+            director: movie.Director.Name,
+            actors: movie.Actors,
+          };
+        });
+  
+        setMovies(moviesFromApi);
       });
-
-      setMovies(moviesFromApi);
-    });
-}, []);
+  }, []);
+  
 
 
   if (selectedMovie) {
