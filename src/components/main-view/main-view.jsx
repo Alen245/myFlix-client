@@ -8,7 +8,7 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-  fetch("https://moviepi24.herokuapp.com/")
+  fetch("https://moviepi24.herokuapp.com/movies")
     .then((response) => response.json())
     .then((data) => {
       const moviesFromApi = data.Search.map((movie) => {
@@ -16,7 +16,6 @@ export const MainView = () => {
           id: movie._id,
           title: movie.Title,
           description: movie.Description,
-          director: movie.Director,
           image: movie.ImagePath,
         };
       });
