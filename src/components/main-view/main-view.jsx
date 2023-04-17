@@ -4,6 +4,8 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 
 export const MainView = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
   // state variables using useState hook
   const [movies, setMovies] = useState([]); // array of movies
   const [selectedMovie, setSelectedMovie] = useState(null); // selected movie object
