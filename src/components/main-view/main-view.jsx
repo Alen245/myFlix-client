@@ -22,11 +22,11 @@ export const MainView = () => {
             actors: movie.Actors,
           };
         });
-  
+
         setMovies(moviesFromApi);
       });
   }, []);
-  
+
 
 
   if (selectedMovie) {
