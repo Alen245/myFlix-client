@@ -94,7 +94,7 @@ export const MainView = () => {
         />
       ))}
       {/* button to logout and reset user and token states */}
-      <button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
+      <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
     </div>
   );
 };
