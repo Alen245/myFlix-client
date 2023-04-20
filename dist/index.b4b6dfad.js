@@ -27294,12 +27294,38 @@ const MainView = ()=>{
     _s();
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
-    // state variables using useState hook
-    const [movies, setMovies] = (0, _react.useState)([]); // array of movies
-    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null); // selected movie object
-    const [user, setUser] = (0, _react.useState)(null); // user object
-    const [token, setToken] = (0, _react.useState)(null); // JWT token
-    // if user is not logged in, show the LoginView component
+    const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
+    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
+    const [movies, setMovies] = (0, _react.useState)([]);
+    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    // useEffect hook allows React to perform side effects in component e.g fetching data
+    (0, _react.useEffect)(()=>{
+        if (!token) return;
+        // set loading before sending API request
+        fetch("https://moviepi24.herokuapp.com/movies", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>response.json()).then((data)=>{
+            console.log("data", data);
+            const moviesFromApi = data.map((movie)=>{
+                return {
+                    // value names match to API database
+                    id: movie._id,
+                    title: movie.Title,
+                    image: movie.ImagePath,
+                    description: movie.Description,
+                    genre: movie.Genre.Name,
+                    director: movie.Director.Name,
+                    release: movie.Release
+                };
+            });
+            setMovies(moviesFromApi);
+        });
+    }, [
+        token
+    ]);
+    // user must first either login or signup
     if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
@@ -27309,110 +27335,99 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 20,
+                lineNumber: 50,
                 columnNumber: 9
             }, undefined),
             "or",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 25,
+                lineNumber: 55,
                 columnNumber: 9
             }, undefined)
         ]
     }, void 0, true);
-    // useEffect hook to fetch movie data from API when component mounts
-    (0, _react.useEffect)(()=>{
-        fetch("https://moviepi24.herokuapp.com/movies").then((response)=>response.json()).then((data)=>{
-            // map data received from API to an array of objects with desired properties
-            const moviesFromApi = data.map((movie)=>{
-                return {
-                    id: movie._id,
-                    title: movie.Title,
-                    description: movie.Description,
-                    image: movie.ImagePath,
-                    genre: movie.Genre.Name,
-                    director: movie.Director.Name,
-                    actors: movie.Actors
-                };
-            });
-            // set the movies state to the new array of movie objects
-            setMovies(moviesFromApi);
-        }).catch((err)=>console.error(err)); // add catch here
-    }, []);
-    // useEffect hook to fetch movie data with authentication when token changes
-    (0, _react.useEffect)(()=>{
-        // if token is not set, return from hook
-        if (!token) return;
-        // fetch movie data with Authorization header using the token
-        fetch("https://moviepi24.herokuapp.com/movies", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>response.json()).then((data)=>{
-            // log the data received from API to console
-            console.log(data);
-        });
-    }, [
-        token
-    ]);
-    // if user is not logged in, show the LoginView component
-    if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-        onLoggedIn: (user)=>setUser(user)
-    }, void 0, false, {
-        fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 74,
-        columnNumber: 12
-    }, undefined);
-    // if selectedMovie is set, show the MovieView component for the selected movie
-    if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-        movie: selectedMovie,
-        onBackClick: ()=>setSelectedMovie(null)
-    }, void 0, false, {
-        fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 80,
-        columnNumber: 7
-    }, undefined);
-    // if the movies array is empty, show a message
-    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: "The list is empty!"
-    }, void 0, false, {
-        fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 86,
-        columnNumber: 12
-    }, undefined);
-    // render the movie cards for each movie object in the movies array
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+    // displays movie-view when movie is selected (clicked)
+    if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
-            movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                    movie: movie,
-                    onMovieClick: (newSelectedMovie)=>{
-                        setSelectedMovie(newSelectedMovie);
-                    }
-                }, movie.id, false, {
-                    fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 93,
-                    columnNumber: 9
-                }, undefined)),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                 onClick: ()=>{
                     setUser(null);
                     setToken(null);
                     localStorage.clear();
                 },
-                children: "Logout"
+                children: " Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 102,
+                lineNumber: 64,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+                movie: selectedMovie,
+                onBackClick: ()=>setSelectedMovie(null)
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 68,
                 columnNumber: 7
             }, undefined)
         ]
+    }, void 0, true);
+    // displays text message if list of movies is empty
+    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: ()=>{
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                },
+                children: " Logout"
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 77,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: "The list is empty!"
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 81,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true);
+    // displays movie-card with logout button, if user does not select a movie 
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: ()=>{
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                },
+                children: " Logout"
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 89,
+                columnNumber: 7
+            }, undefined),
+            movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                    movie: movie,
+                    onMovieClick: (newSelectedMovie)=>{
+                        setSelectedMovie(newSelectedMovie);
+                    }
+                }, movie._id, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 95,
+                    columnNumber: 9
+                }, undefined))
+        ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 91,
+        lineNumber: 88,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "Ntl+fchSg7oKcWJ3RZoj8B9Pvho=");
+_s(MainView, "skShail9kO25ilQX788tJ78Yq3c=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
