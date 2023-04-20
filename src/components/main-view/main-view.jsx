@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
-import { MovieView } from "../movie-view/movie-view"; 
+import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
-  const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  // state variables using useState hook
+  const [movies, setMovies] = useState([]); // array of movies
+  const [selectedMovie, setSelectedMovie] = useState(null); // selected movie object
+  const [user, setUser] = useState(null); // user object
+  const [token, setToken] = useState(null); // JWT token
 
   useEffect(() => {
     // Fetch movies from API using the token
