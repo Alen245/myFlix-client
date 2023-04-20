@@ -7,44 +7,36 @@ import { SignupView } from "../signup-view/signup-view";
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(storedUser? storedUser : null);
-  const [token, setToken] = useState(storedToken? storedToken : null);
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  
-  
-  // useEffect hook allows React to perform side effects in component e.g fetching data
-  useEffect(() => {
-    if (!token) {
-      return;
-    }
-    // set loading before sending API request
-    
-    fetch("https://moviepi24.herokuapp.com/movies", {
-      headers: {Authorization: `Bearer ${token}`}
-    })
-      .then((response) => response.json())
-      .then((data) => {
-      
-        console.log('data', data);
-        const moviesFromApi = data.map((movie) => {
-          return {
-          // value names match to API database
-          id: movie._id,
-          title: movie.Title,
-          image: movie.ImagePath,
-          description: movie.Description,
-          genre: movie.Genre.Name,
-          director: movie.Director.Name,
-          release: movie.Release
-          }
-        });
-        setMovies(moviesFromApi);
-      })
-  }, [token])
 
-  // user must first either login or signup
+  useEffect(() => {
+    // Fetch movies from API using the token
+    if (token) {
+      fetch("https://moviepi24.herokuapp.com/movies", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const moviesFromApi = data.map((movie) => ({
+            genre: movie.Genre.Name,
+            director: movie.Director.Name,
+            actors: movie.Actors,
+            id: movie._id,
+            title: movie.Title,
+            description: movie.Description,
+            image: movie.ImagePath,
+            featured: movie.Featured
+          }));
+          setMovies(moviesFromApi);
+        });
+    }
+  }, [token]);
+
   if (!user) {
+    // If user is not logged in, show the LoginView and SignupView components
     return (
       <>
         <LoginView onLoggedIn={(user, token) => {
@@ -54,46 +46,57 @@ export const MainView = () => {
         or
         <SignupView />
       </>
-    )
+    );
   }
 
-  // displays movie-view when movie is selected (clicked)
   if (selectedMovie) {
+    // If a movie is selected, show the MovieView component
     return (
       <>
-      <button onClick={() => { setUser(null); setToken(null); localStorage.clear();
-      }}
-      > Logout 
-      </button>
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+        <button onClick={() => {
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
+        }}>
+          Logout
+        </button>
+        <MovieView
+          movie={selectedMovie}
+          onBackClick={() => setSelectedMovie(null)}
+        />
       </>
     );
   }
 
-  // displays text message if list of movies is empty
   if (movies.length === 0) {
+    // If there are no movies in the list, show a message
     return (
       <>
-      <button onClick={() => { setUser(null); setToken(null); localStorage.clear();
-      }}
-      > Logout
-      </button>
-      <div>The list is empty!</div>
-    </>
+        <button onClick={() => {
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
+        }}>
+          Logout
+        </button>
+        <div>The list is empty!</div>
+      </>
     );
   }
 
-  // displays movie-card with logout button, if user does not select a movie 
+  // If user is logged in and no movie is selected, show the movie list
   return (
     <div>
-      <button onClick={() => { setUser(null); setToken(null); localStorage.clear();
-      }}
-    > Logout
-    </button>
-    
+      <button onClick={() => {
+        setUser(null);
+        setToken(null);
+        localStorage.clear();
+      }}>
+        Logout
+      </button>
       {movies.map((movie) => (
         <MovieCard
-          key={movie._id}
+          key={movie.id}
           movie={movie}
           onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
@@ -102,4 +105,4 @@ export const MainView = () => {
       ))}
     </div>
   );
-}
+};

@@ -27298,35 +27298,30 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
-    // useEffect hook allows React to perform side effects in component e.g fetching data
     (0, _react.useEffect)(()=>{
-        if (!token) return;
-        // set loading before sending API request
-        fetch("https://moviepi24.herokuapp.com/movies", {
+        // Fetch movies from API using the token
+        if (token) fetch("https://moviepi24.herokuapp.com/movies", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>response.json()).then((data)=>{
-            console.log("data", data);
-            const moviesFromApi = data.map((movie)=>{
-                return {
-                    // value names match to API database
-                    id: movie._id,
-                    title: movie.Title,
-                    image: movie.ImagePath,
-                    description: movie.Description,
+            const moviesFromApi = data.map((movie)=>({
                     genre: movie.Genre.Name,
                     director: movie.Director.Name,
-                    release: movie.Release
-                };
-            });
+                    actors: movie.Actors,
+                    id: movie._id,
+                    title: movie.Title,
+                    description: movie.Description,
+                    image: movie.ImagePath,
+                    featured: movie.Featured
+                }));
             setMovies(moviesFromApi);
         });
     }, [
         token
     ]);
-    // user must first either login or signup
-    if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+    if (!user) // If user is not logged in, show the LoginView and SignupView components
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
                 onLoggedIn: (user, token)=>{
@@ -27335,19 +27330,19 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 50,
+                lineNumber: 42,
                 columnNumber: 9
             }, undefined),
             "or",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 55,
+                lineNumber: 47,
                 columnNumber: 9
             }, undefined)
         ]
     }, void 0, true);
-    // displays movie-view when movie is selected (clicked)
-    if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+    if (selectedMovie) // If a movie is selected, show the MovieView component
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                 onClick: ()=>{
@@ -27355,24 +27350,24 @@ const MainView = ()=>{
                     setToken(null);
                     localStorage.clear();
                 },
-                children: " Logout"
+                children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 64,
-                columnNumber: 7
+                lineNumber: 56,
+                columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
                 movie: selectedMovie,
                 onBackClick: ()=>setSelectedMovie(null)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 68,
-                columnNumber: 7
+                lineNumber: 63,
+                columnNumber: 9
             }, undefined)
         ]
     }, void 0, true);
-    // displays text message if list of movies is empty
-    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+    if (movies.length === 0) // If there are no movies in the list, show a message
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                 onClick: ()=>{
@@ -27380,22 +27375,22 @@ const MainView = ()=>{
                     setToken(null);
                     localStorage.clear();
                 },
-                children: " Logout"
+                children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 77,
-                columnNumber: 7
+                lineNumber: 75,
+                columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: "The list is empty!"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 81,
-                columnNumber: 7
+                lineNumber: 82,
+                columnNumber: 9
             }, undefined)
         ]
     }, void 0, true);
-    // displays movie-card with logout button, if user does not select a movie 
+    // If user is logged in and no movie is selected, show the movie list
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27404,10 +27399,10 @@ const MainView = ()=>{
                     setToken(null);
                     localStorage.clear();
                 },
-                children: " Logout"
+                children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 89,
+                lineNumber: 90,
                 columnNumber: 7
             }, undefined),
             movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27415,19 +27410,19 @@ const MainView = ()=>{
                     onMovieClick: (newSelectedMovie)=>{
                         setSelectedMovie(newSelectedMovie);
                     }
-                }, movie._id, false, {
+                }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 95,
+                    lineNumber: 98,
                     columnNumber: 9
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 88,
+        lineNumber: 89,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "skShail9kO25ilQX788tJ78Yq3c=");
+_s(MainView, "9wJBvfUyU2IigbyWC+M5y3EH9h4=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
