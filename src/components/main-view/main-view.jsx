@@ -28,26 +28,29 @@ export const MainView = () => {
   }
 
   // useEffect hook to fetch movie data from API when component mounts
-  useEffect(() => {
-    fetch("https://moviepi24.herokuapp.com/movies")
-      .then((response) => response.json())
-      .then((data) => {
-        // map data received from API to an array of objects with desired properties
-        const moviesFromApi = data.map((movie) => {
-          return {
-            id: movie._id,
-            title: movie.Title,
-            description: movie.Description,
-            image: movie.ImagePath,
-            genre: movie.Genre.Name,
-            director: movie.Director.Name,
-            actors: movie.Actors,
-          };
-        });
-        // set the movies state to the new array of movie objects
-        setMovies(moviesFromApi);
+
+useEffect(() => {
+  fetch("https://moviepi24.herokuapp.com/movies")
+    .then((response) => response.json())
+    .then((data) => {
+      // map data received from API to an array of objects with desired properties
+      const moviesFromApi = data.map((movie) => {
+        return {
+          id: movie._id,
+          title: movie.Title,
+          description: movie.Description,
+          image: movie.ImagePath,
+          genre: movie.Genre.Name,
+          director: movie.Director.Name,
+          actors: movie.Actors,
+        };
       });
-  }, []);
+      // set the movies state to the new array of movie objects
+      setMovies(moviesFromApi);
+    })
+    .catch((err) => console.error(err)); // add catch here
+}, []);
+
 
   // useEffect hook to fetch movie data with authentication when token changes
   useEffect(() => {

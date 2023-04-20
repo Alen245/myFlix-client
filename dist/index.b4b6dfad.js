@@ -27337,7 +27337,7 @@ const MainView = ()=>{
             });
             // set the movies state to the new array of movie objects
             setMovies(moviesFromApi);
-        });
+        }).catch((err)=>console.error(err)); // add catch here
     }, []);
     // useEffect hook to fetch movie data with authentication when token changes
     (0, _react.useEffect)(()=>{
@@ -27360,7 +27360,7 @@ const MainView = ()=>{
         onLoggedIn: (user)=>setUser(user)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 71,
+        lineNumber: 74,
         columnNumber: 12
     }, undefined);
     // if selectedMovie is set, show the MovieView component for the selected movie
@@ -27369,7 +27369,7 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 77,
+        lineNumber: 80,
         columnNumber: 7
     }, undefined);
     // if the movies array is empty, show a message
@@ -27377,7 +27377,7 @@ const MainView = ()=>{
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 83,
+        lineNumber: 86,
         columnNumber: 12
     }, undefined);
     // render the movie cards for each movie object in the movies array
@@ -27390,7 +27390,7 @@ const MainView = ()=>{
                     }
                 }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 90,
+                    lineNumber: 93,
                     columnNumber: 9
                 }, undefined)),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27402,13 +27402,13 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 99,
+                lineNumber: 102,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 88,
+        lineNumber: 91,
         columnNumber: 5
     }, undefined);
 };
