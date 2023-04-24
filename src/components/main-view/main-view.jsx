@@ -15,13 +15,14 @@ export const MainView = () => {
 
   useEffect(() => {
     // Fetch movies from API using the token
-    if (token) {
-      fetch("https://moviepi24.herokuapp.com/movies", {
-        headers: { Authorization: `Bearer ${token}` },
+      fetch("https://movieapi24.herokuapp.com/movies", {
+        mode: "no-cors",
+        headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Origin':'*'}
       })
-        .then((response) => response.json())
+        .then((response) =>  response.json())
         .then((data) => {
-          const moviesFromApi = data.map((movie) => ({
+          const temp = data ? data : {}
+          const moviesFromApi = temp.map((movie) => ({
             genre: movie.Genre.Name,
             director: movie.Director.Name,
             actors: movie.Actors,
@@ -32,8 +33,8 @@ export const MainView = () => {
             featured: movie.Featured
           }));
           setMovies(moviesFromApi);
-        });
-    }
+        }).catch(err => console.log(err));
+    
   }, [token]);
 
   if (!user) {
