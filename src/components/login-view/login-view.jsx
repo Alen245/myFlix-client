@@ -1,4 +1,5 @@
 // import the useState hook from the react library
+import { token } from "morgan";
 import { useState } from "react";
 
 // define a functional component called LoginView that receives a prop called onLoggedIn
@@ -25,7 +26,7 @@ export const LoginView = ({ onLoggedIn }) => {
     }).then((response) => {
       // if the response is ok (status code 200-299), call the onLoggedIn prop with the username value
       if (response.ok) {
-        onLoggedIn(username);
+        onLoggedIn(token);
       } else {
         // otherwise, show an alert with the message "Login failed"
         alert("Login failed");
