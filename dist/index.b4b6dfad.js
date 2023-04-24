@@ -27300,8 +27300,12 @@ const MainView = ()=>{
     const [user, setUser] = (0, _react.useState)(null); // user object
     const [token, setToken] = (0, _react.useState)(null); // JWT token
     (0, _react.useEffect)(()=>{
-        // Fetch movies from API
-        fetch("https://moviepi24.herokuapp.com/movies").then((response)=>response.json()).then((data)=>{
+        // Fetch movies from API using the token
+        if (token) fetch("https://moviepi24.herokuapp.com/movies", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>response.json()).then((data)=>{
             const moviesFromApi = data.map((movie)=>({
                     genre: movie.Genre.Name,
                     director: movie.Director.Name,
@@ -27313,8 +27317,10 @@ const MainView = ()=>{
                     featured: movie.Featured
                 }));
             setMovies(moviesFromApi);
-        }).catch((error)=>console.log(error));
-    }, []);
+        });
+    }, [
+        token
+    ]);
     if (!user) // If user is not logged in, show the LoginView and SignupView components
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
@@ -27325,13 +27331,13 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 40,
+                lineNumber: 43,
                 columnNumber: 9
             }, undefined),
             "or",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 47,
+                lineNumber: 48,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27348,7 +27354,7 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 56,
+                lineNumber: 57,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
@@ -27356,7 +27362,7 @@ const MainView = ()=>{
                 onBackClick: ()=>setSelectedMovie(null)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 65,
+                lineNumber: 64,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27373,14 +27379,14 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 77,
+                lineNumber: 76,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: "The list is empty!"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 87,
+                lineNumber: 83,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27397,7 +27403,7 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 95,
+                lineNumber: 91,
                 columnNumber: 7
             }, undefined),
             movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27407,13 +27413,13 @@ const MainView = ()=>{
                     }
                 }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 103,
+                    lineNumber: 99,
                     columnNumber: 9
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 94,
+        lineNumber: 90,
         columnNumber: 5
     }, undefined);
 };
