@@ -13,28 +13,18 @@ export const LoginView = ({ onLoggedIn }) => {
       secret: password
     };
 
-    fetch("https://moviepi24.herokuapp.com/login", {
+    fetch("https://openlibrary.org/account/login.json", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
       body: JSON.stringify(data)
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Login response:", data);
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("token", data.token);
-        onLoggedIn(data.user, data.token);
+    }).then((response) => {
+      if (response.ok) {
+        onLoggedIn(username);
       } else {
-        alert("No such user");
+        alert("Login failed");
       }
-    })
-    .catch((e) => {
-      alert("Something went wrong");
     });
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <label>

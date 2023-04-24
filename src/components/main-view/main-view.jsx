@@ -14,36 +14,35 @@ export const MainView = () => {
   const [token, setToken] = useState(null); // JWT token
 
   useEffect(() => {
-    // Fetch movies from API using the token
-    if (token) {
-      fetch("https://moviepi24.herokuapp.com/movies", {
-        headers: { Authorization: `Bearer ${token}` },
+    // Fetch movies from API
+    fetch("https://moviepi24.herokuapp.com/movies")
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => ({
+          genre: movie.Genre.Name,
+          director: movie.Director.Name,
+          actors: movie.Actors,
+          id: movie._id,
+          title: movie.Title,
+          description: movie.Description,
+          image: movie.ImagePath,
+          featured: movie.Featured,
+        }));
+        setMovies(moviesFromApi);
       })
-        .then((response) => response.json())
-        .then((data) => {
-          const moviesFromApi = data.map((movie) => ({
-            genre: movie.Genre.Name,
-            director: movie.Director.Name,
-            actors: movie.Actors,
-            id: movie._id,
-            title: movie.Title,
-            description: movie.Description,
-            image: movie.ImagePath,
-            featured: movie.Featured
-          }));
-          setMovies(moviesFromApi);
-        });
-    }
-  }, [token]);
+      .catch((error) => console.log(error));
+  }, []);
 
   if (!user) {
     // If user is not logged in, show the LoginView and SignupView components
     return (
       <>
-        <LoginView onLoggedIn={(user, token) => {
-          setUser(user);
-          setToken(token);
-        }} />
+        <LoginView
+          onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }}
+        />
         or
         <SignupView />
       </>
@@ -54,11 +53,13 @@ export const MainView = () => {
     // If a movie is selected, show the MovieView component
     return (
       <>
-        <button onClick={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear();
-        }}>
+        <button
+          onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear();
+          }}
+        >
           Logout
         </button>
         <MovieView
@@ -73,13 +74,16 @@ export const MainView = () => {
     // If there are no movies in the list, show a message
     return (
       <>
-        <button onClick={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear();
-        }}>
+        <button
+          onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear();
+          }}
+        >
           Logout
         </button>
+
         <div>The list is empty!</div>
       </>
     );
