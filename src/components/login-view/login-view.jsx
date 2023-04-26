@@ -9,21 +9,29 @@ export const LoginView = ({ onLoggedIn }) => {
     event.preventDefault();
 
     const data = {
-      access: "zP3PzUaFGhB9sXmd",
-      secret: "GNXmXJLX8110foqX"
+
+      "Username": username,
+      "Password": password,
     };
 
-    fetch("https://openlibrary.org/account/login.json", {
+    fetch("http://moviepi24.herokuapp.com/login", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(data)
-    }).then((response) => {
-      if (response.ok) {
-        onLoggedIn(username);
-        // onLoggedIn('test')
-      } else {
-        alert("Login failed");
-      }
-    }).catch(error => {console.error(error)})
+    })
+      .then((res) => res.json())
+
+      .then((response) => {
+
+        console.log({ response })
+        if (response.user) {
+          return onLoggedIn(username, response.token);
+        } else {
+          return alert("Login failed");
+        }
+      }).catch(error => { console.error(error) })
   };
 
   return (

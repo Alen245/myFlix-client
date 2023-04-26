@@ -13,35 +13,67 @@ export const MainView = () => {
   const [user, setUser] = useState(null); // user object
   const [token, setToken] = useState(null); // JWT token
 
+  // useEffect(() => {
+  //   // Fetch movies from API using the token
+  //   console.log("text")
+  //   fetch("https://moviepi24.herokuapp.com/movies", {
+  //     mode: "no-cors",
+  //     headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Origin': '*' }
+  //   })
+  //     .then((response) => {
+  //       console.log({ response })
+  //       return response.json()
+  //     })
+  //     .then((data) => {
+  //       console.log({ data })
+  //       const temp = data ? data : {}
+  //       const moviesFromApi = temp.map((movie) => ({
+  //         genre: movie.Genre.Name,
+  //         director: movie.Director.Name,
+  //         actors: movie.Actors,
+  //         id: movie._id,
+  //         title: movie.Title,
+  //         description: movie.Description,
+  //         image: movie.ImagePath,
+  //         featured: movie.Featured
+  //       }));
+  //       setMovies(moviesFromApi);
+  //     })
+
+  // }, [token]);
   useEffect(() => {
-    // Fetch movies from API using the token
-      fetch("https://movieapi24.herokuapp.com/movies", {
-        mode: "no-cors",
-        headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Origin':'*'}
-      })
-        .then((response) =>  response.json())
-        .then((data) => {
-          const temp = data ? data : {}
-          const moviesFromApi = temp.map((movie) => ({
-            genre: movie.Genre.Name,
-            director: movie.Director.Name,
-            actors: movie.Actors,
+    // if (!token) return;
+    if (token) fetchMovies(token)
+  }, [token]);
+
+  const fetchMovies = (t) => {
+
+    fetch("http://moviepi24.herokuapp.com/movies", {
+
+      headers: { Authorization: `Bearer ${t}`, 'Access-Control-Allow-Origin': '*' }
+    })
+      .then(resonse => resonse.json())
+      .then(movies => {
+        const moviesFromAPI = movies.map(movie => {
+          return {
             id: movie._id,
             title: movie.Title,
             description: movie.Description,
-            image: movie.ImagePath,
-            featured: movie.Featured
-          }));
-          setMovies(moviesFromApi);
-        }).catch(err => console.log(err));
-    
-  }, [token]);
-
+            genre: movie.Genre.Name,
+            director: movie.Director.Name,
+            image: movie.imageUrl
+          };
+        });
+        console.log({ movies, moviesFromAPI })
+        setMovies(moviesFromAPI);
+      });
+  }
   if (!user) {
     // If user is not logged in, show the LoginView and SignupView components
     return (
       <>
         <LoginView onLoggedIn={(user, token) => {
+          console.log(user, token)
           setUser(user);
           setToken(token);
         }} />
