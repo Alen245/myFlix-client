@@ -42,32 +42,34 @@ export const MainView = () => {
 
   // }, [token]);
   useEffect(() => {
-    // if (!token) return;
-    if (token) fetchMovies(token)
+    if (token) {
+      fetchMovies(token);
+    }
   }, [token]);
 
+
+
   const fetchMovies = (t) => {
-
-    fetch("http://moviepi24.herokuapp.com/movies", {
-
-      headers: { Authorization: `Bearer ${t}`, 'Access-Control-Allow-Origin': '*' }
+    fetch("https://moviepi24.herokuapp.com/movies", {
+      headers: { Authorization: `Bearer ${t}` }
     })
-      .then(resonse => resonse.json())
-      .then(movies => {
-        const moviesFromAPI = movies.map(movie => {
-          return {
-            id: movie._id,
-            title: movie.Title,
-            description: movie.Description,
-            genre: movie.Genre.Name,
-            director: movie.Director.Name,
-            image: movie.imageUrl
-          };
-        });
-        console.log({ movies, moviesFromAPI })
-        setMovies(moviesFromAPI);
-      });
-  }
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => ({
+          genre: movie.Genre.Name,
+          director: movie.Director.Name,
+          actors: movie.Actors,
+          id: movie._id,
+          title: movie.Title,
+          description: movie.Description,
+          image: movie.ImagePath,
+          featured: movie.Featured
+        }));
+        setMovies(moviesFromApi);
+      })
+      .catch((error) => console.log(error));
+  };
+
   if (!user) {
     // If user is not logged in, show the LoginView and SignupView components
     return (

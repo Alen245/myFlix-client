@@ -1,4 +1,4 @@
-import{ useState } from "react";
+import { useState } from "react";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -7,7 +7,7 @@ export const SignupView = () => {
   const [birthday, setBirthday] = useState("");
 
   const handleSubmit = (event) => {
-    
+
     event.preventDefault();
 
     const data = {
@@ -30,7 +30,8 @@ export const SignupView = () => {
       } else {
         alert("Signup failed");
       }
-    });};
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -75,3 +76,7 @@ export const SignupView = () => {
     </form>
   );
 };
+
+
+
+
