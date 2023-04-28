@@ -1,3 +1,40 @@
+// useEffect(() => {
+//   // Fetch movies from API using the token
+//   console.log("text")
+//   fetch("https://moviepi24.herokuapp.com/movies", {
+//     mode: "no-cors",
+//     headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Origin': '*' }
+//   })
+//     .then((response) => {
+//       console.log({ response })
+//       return response.json()
+//     })
+//     .then((data) => {
+//       console.log({ data })
+//       const temp = data ? data : {}
+//       const moviesFromApi = temp.map((movie) => ({
+//         genre: movie.Genre.Name,
+//         director: movie.Director.Name,
+//         actors: movie.Actors,
+//         id: movie._id,
+//         title: movie.Title,
+//         description: movie.Description,
+//         image: movie.ImagePath,
+//         featured: movie.Featured
+//       }));
+//       setMovies(moviesFromApi);
+//     })
+
+// }, [token]);
+
+
+
+
+
+
+
+
+
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
@@ -13,34 +50,7 @@ export const MainView = () => {
   const [user, setUser] = useState(null); // user object
   const [token, setToken] = useState(null); // JWT token
 
-  // useEffect(() => {
-  //   // Fetch movies from API using the token
-  //   console.log("text")
-  //   fetch("https://moviepi24.herokuapp.com/movies", {
-  //     mode: "no-cors",
-  //     headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Origin': '*' }
-  //   })
-  //     .then((response) => {
-  //       console.log({ response })
-  //       return response.json()
-  //     })
-  //     .then((data) => {
-  //       console.log({ data })
-  //       const temp = data ? data : {}
-  //       const moviesFromApi = temp.map((movie) => ({
-  //         genre: movie.Genre.Name,
-  //         director: movie.Director.Name,
-  //         actors: movie.Actors,
-  //         id: movie._id,
-  //         title: movie.Title,
-  //         description: movie.Description,
-  //         image: movie.ImagePath,
-  //         featured: movie.Featured
-  //       }));
-  //       setMovies(moviesFromApi);
-  //     })
 
-  // }, [token]);
   useEffect(() => {
     if (token) {
       fetchMovies(token);
@@ -142,3 +152,8 @@ export const MainView = () => {
     </div>
   );
 };
+
+
+
+
+

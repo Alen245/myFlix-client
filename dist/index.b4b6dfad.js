@@ -27280,6 +27280,33 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$f7a6.prelude(module);
 
 try {
+// useEffect(() => {
+//   // Fetch movies from API using the token
+//   console.log("text")
+//   fetch("https://moviepi24.herokuapp.com/movies", {
+//     mode: "no-cors",
+//     headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Origin': '*' }
+//   })
+//     .then((response) => {
+//       console.log({ response })
+//       return response.json()
+//     })
+//     .then((data) => {
+//       console.log({ data })
+//       const temp = data ? data : {}
+//       const moviesFromApi = temp.map((movie) => ({
+//         genre: movie.Genre.Name,
+//         director: movie.Director.Name,
+//         actors: movie.Actors,
+//         id: movie._id,
+//         title: movie.Title,
+//         description: movie.Description,
+//         image: movie.ImagePath,
+//         featured: movie.Featured
+//       }));
+//       setMovies(moviesFromApi);
+//     })
+// }, [token]);
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MainView", ()=>MainView);
@@ -27299,33 +27326,6 @@ const MainView = ()=>{
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null); // selected movie object
     const [user, setUser] = (0, _react.useState)(null); // user object
     const [token, setToken] = (0, _react.useState)(null); // JWT token
-    // useEffect(() => {
-    //   // Fetch movies from API using the token
-    //   console.log("text")
-    //   fetch("https://moviepi24.herokuapp.com/movies", {
-    //     mode: "no-cors",
-    //     headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Origin': '*' }
-    //   })
-    //     .then((response) => {
-    //       console.log({ response })
-    //       return response.json()
-    //     })
-    //     .then((data) => {
-    //       console.log({ data })
-    //       const temp = data ? data : {}
-    //       const moviesFromApi = temp.map((movie) => ({
-    //         genre: movie.Genre.Name,
-    //         director: movie.Director.Name,
-    //         actors: movie.Actors,
-    //         id: movie._id,
-    //         title: movie.Title,
-    //         description: movie.Description,
-    //         image: movie.ImagePath,
-    //         featured: movie.Featured
-    //       }));
-    //       setMovies(moviesFromApi);
-    //     })
-    // }, [token]);
     (0, _react.useEffect)(()=>{
         if (token) fetchMovies(token);
     }, [
@@ -27361,13 +27361,13 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 77,
+                lineNumber: 87,
                 columnNumber: 9
             }, undefined),
             "or",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 83,
+                lineNumber: 93,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27384,7 +27384,7 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 92,
+                lineNumber: 102,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
@@ -27392,7 +27392,7 @@ const MainView = ()=>{
                 onBackClick: ()=>setSelectedMovie(null)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 99,
+                lineNumber: 109,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27409,14 +27409,14 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 111,
+                lineNumber: 121,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: "The list is empty!"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 118,
+                lineNumber: 128,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27433,7 +27433,7 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 126,
+                lineNumber: 136,
                 columnNumber: 7
             }, undefined),
             movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27443,13 +27443,13 @@ const MainView = ()=>{
                     }
                 }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 134,
+                    lineNumber: 144,
                     columnNumber: 9
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 125,
+        lineNumber: 135,
         columnNumber: 5
     }, undefined);
 };
@@ -27491,7 +27491,7 @@ const MovieCard = ({ movie , onMovieClick  })=>{
 _c = MovieCard;
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
-        _id: (0, _propTypesDefault.default).string.isRequired,
+        _id: (0, _propTypesDefault.default).string,
         Title: (0, _propTypesDefault.default).string.isRequired,
         Description: (0, _propTypesDefault.default).string.isRequired,
         Director: (0, _propTypesDefault.default).shape({
@@ -27505,6 +27505,11 @@ MovieCard.propTypes = {
         Featured: (0, _propTypesDefault.default).bool.isRequired
     }).isRequired,
     onMovieClick: (0, _propTypesDefault.default).func.isRequired
+};
+MovieCard.defaultProps = {
+    movie: {
+        _id: ""
+    }
 };
 var _c;
 $RefreshReg$(_c, "MovieCard");
@@ -28688,6 +28693,6 @@ $RefreshReg$(_c, "SignupView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"g3qxX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4bQA4","react":"21dqq"}]},["6nMD2","8o0KF","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"g3qxX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4bQA4"}]},["6nMD2","8o0KF","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map
