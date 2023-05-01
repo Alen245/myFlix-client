@@ -27280,33 +27280,6 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$f7a6.prelude(module);
 
 try {
-// useEffect(() => {
-//   // Fetch movies from API using the token
-//   console.log("text")
-//   fetch("https://moviepi24.herokuapp.com/movies", {
-//     mode: "no-cors",
-//     headers: { Authorization: `Bearer ${token}`, 'Access-Control-Allow-Origin': '*' }
-//   })
-//     .then((response) => {
-//       console.log({ response })
-//       return response.json()
-//     })
-//     .then((data) => {
-//       console.log({ data })
-//       const temp = data ? data : {}
-//       const moviesFromApi = temp.map((movie) => ({
-//         genre: movie.Genre.Name,
-//         director: movie.Director.Name,
-//         actors: movie.Actors,
-//         id: movie._id,
-//         title: movie.Title,
-//         description: movie.Description,
-//         image: movie.ImagePath,
-//         featured: movie.Featured
-//       }));
-//       setMovies(moviesFromApi);
-//     })
-// }, [token]);
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MainView", ()=>MainView);
@@ -27362,13 +27335,13 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 84,
+                lineNumber: 51,
                 columnNumber: 9
             }, undefined),
             "or",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 89,
+                lineNumber: 56,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27385,7 +27358,7 @@ const MainView = ()=>{
                 children: " Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 98,
+                lineNumber: 65,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
@@ -27393,7 +27366,7 @@ const MainView = ()=>{
                 onBackClick: ()=>setSelectedMovie(null)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 103,
+                lineNumber: 70,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27410,14 +27383,14 @@ const MainView = ()=>{
                 children: " Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 112,
+                lineNumber: 79,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: "The list is empty!"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 117,
+                lineNumber: 84,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27434,7 +27407,7 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 125,
+                lineNumber: 92,
                 columnNumber: 7
             }, undefined),
             movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27444,13 +27417,13 @@ const MainView = ()=>{
                     }
                 }, movie._id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 136,
+                    lineNumber: 103,
                     columnNumber: 9
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 124,
+        lineNumber: 91,
         columnNumber: 5
     }, undefined);
 };
