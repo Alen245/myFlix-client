@@ -19,8 +19,6 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-    // set loading before sending API request
-
     fetch("https://moviepi24.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
     })
