@@ -1,78 +1,29 @@
-import { useState } from "react";
 
-export const SignupView = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
 
-  const handleSubmit = (event) => {
 
-    event.preventDefault();
-
-    const data = {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday
-    };
-
-    fetch("SIGNUP_URL", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then((response) => {
-      if (response.ok) {
-        alert("Signup successful");
-        window.location.reload();
-      } else {
-        alert("Signup failed");
-      }
-    });
-  };
-
+export const MovieView = ({ movie, onBackClick }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          minLength="3"
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Birthday:
-        <input
-          type="date"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <div>
+        <img src={movie.image} />
+      </div>
+      <div>
+        <span>Title: </span>
+        <span>{movie.title}</span>
+      </div>
+      <div>
+        <span>Director: </span>
+        <span>{movie.director}</span>
+      </div>
+      <div>
+        <span>Genre: </span>
+        <span>{movie.genre}</span>
+      </div>
+      <div>
+        <span>Description: </span>
+        <span>{movie.description}</span>
+      </div>
+      <button onClick={onBackClick}>Back</button>
+    </div>
   );
 };
