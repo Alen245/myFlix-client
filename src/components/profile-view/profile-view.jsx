@@ -15,10 +15,6 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
         // Filter movies here
     });
 
-    const getUser = () => {
-        // Get user here
-    };
-
     const handleSubmit = (e) => {
         // Handle submit here
     };
@@ -31,9 +27,7 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
         // Handle update here
     };
 
-    useEffect(() => {
-        // Side effect code here
-    }, []);
+
 
     return (
         <div>
