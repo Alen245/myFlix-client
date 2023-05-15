@@ -201,7 +201,7 @@ export const MainView = () => {
               !user ? (
                 <Navigate to="/login" replace />
               ) : (
-                <ProfileView />
+                <ProfileView movies={movies} />
               )
             }
           />

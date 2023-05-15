@@ -10,7 +10,11 @@ import updateUser from "./update-user";
 
 
 export function ProfileView({ movies, onUpdatedUserInfo }) {
-    const [user, setUser] = useState({});
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    const [user, setUser] = useState(storedUser);
+
+
 
     const favoriteMovieList = movies.filter((movie) => {
         // Filter movies here

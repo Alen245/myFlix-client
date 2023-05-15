@@ -29,12 +29,15 @@ export const LoginView = ({ onLoggedIn }) => {
       // convert the response to JSON format
       .then((res) => res.json())
       // handle the response data
-      .then((response) => {
+      .then((data) => {
         // log the response to the console
-        console.log({ response })
+        console.log({ data })
         // if the response includes a user, call the onLoggedIn function with the username and token
-        if (response.user) {
-          return onLoggedIn(username, response.token);
+        if (data.user) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+          localStorage.setItem("token", data.token);
+          return onLoggedIn(data.user, data.token);
+          // return onLoggedIn(username, response.token);
         } else {
           // otherwise, display an alert that the login failed
           return alert("Login failed");
