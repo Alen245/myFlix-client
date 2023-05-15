@@ -8,6 +8,7 @@ import UserInfo from "./user-info";
 import FavoriteMovies from "./favorite-movies";
 import updateUser from "./update-user";
 
+
 export function ProfileView({ movies, onUpdatedUserInfo }) {
     const [user, setUser] = useState({});
 
