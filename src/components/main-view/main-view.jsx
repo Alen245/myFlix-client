@@ -135,10 +135,21 @@ import Col from 'react-bootstrap/Col';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
+  // Check for a stored user and token in localStorage and set the state accordingly
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
+
+  // State for movies and the currently selected movie
   const [movies, setMovies] = useState([]);
-  const [user, setUser] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
 
   useEffect(() => {
+    if (!token) {
+      return;
+    }
     fetch("https://moviepi24.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
