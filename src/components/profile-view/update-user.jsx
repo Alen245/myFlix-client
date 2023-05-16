@@ -1,33 +1,33 @@
-import React from 'react'
+import React from 'react';
 
-export default function updateUser({ handleSubmit, handleUpdate }) {
+export default function UpdateUser({ user, handleSubmit, handleUpdate }) {
     return (
-        <form className="profile-form" onSubmit={(e) => handleSubmit(e)}>
+        <form className="profile-form" onSubmit={handleSubmit}>
             <h2>Want to change some info?</h2>
-            <label> Username:</label>
+            <label>Username:</label>
             <input
                 type="text"
                 name="Username"
-                defaultValue={user.Username}
-                onChange={(e) => handleUpdate(e)}
+                defaultValue={user?.username}
+                onChange={handleUpdate}
             />
-            <label> Password</label>
+            <label>Password:</label>
             <input
                 type="password"
                 name="password"
-                defaultValue={user.Password}
-                onChange={(e) => handleUpdate(e)}
+                defaultValue={user?.password}
+                onChange={handleUpdate}
             />
-            <label>Email address</label>
+            <label>Email address:</label>
             <input
                 type="email"
                 name="email"
-                defaultValue={user.Email}
-                onChange={(e) => handleUpdate(e.target.value)}
+                defaultValue={user?.email}
+                onChange={handleUpdate}
             />
             <button variant="primary" type="submit">
                 Update
             </button>
         </form>
-    )
+    );
 }

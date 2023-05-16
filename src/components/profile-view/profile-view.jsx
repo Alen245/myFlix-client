@@ -6,49 +6,54 @@ import { Link } from "react-router-dom";
 import "./profile-view.scss";
 import UserInfo from "./user-info";
 import FavoriteMovies from "./favorite-movies";
-import updateUser from "./update-user";
+import UpdateUser from "./update-user";
+import { MovieCard } from "../movie-card/movie-card";
 
-// This component represents the profile view of a user
 export function ProfileView({ movies, onUpdatedUserInfo }) {
-
-    // Retrieve the stored user from local storage
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    // Set the user state using the stored user
     const [user, setUser] = useState(storedUser);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
 
-    // Filter the movies to create a list of favorite movies
+    useEffect(() => {
+        if (user) {
+            setUsername(user.Username);
+            setPassword(user.Password);
+            setEmail(user.Email);
+        }
+    }, [user]);
+
     const favoriteMovieList = movies.filter((movie) => {
         // Filter movies here
-        return movie.isFavorite === true;
     });
 
-    // Handle the form submit event
-    const handleSubmit = (e) => {
-        // Handle submit here
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Handle submit logic
     };
 
-    // Remove a favorite movie from the list
     const removeFav = (id) => {
         // Remove favorite movie here
     };
 
-    // Handle the update event
-    const handleUpdate = (e) => {
-        // Handle update here
+    const handleUpdate = (event) => {
+        event.preventDefault();
+        // Handle update logic
     };
 
     return (
         <div>
-            {/* Display user information */}
-            <UserInfo name={user.Username} email={user.Email} />
-
-            {/* Display favorite movies */}
+            <UserInfo username={username} email={email} />
             <FavoriteMovies favoriteMovieList={favoriteMovieList} />
-
-            {/* Display the update user form */}
-            <updateUser handleSubmit={handleSubmit} handleUpdate={handleUpdate} />
+            <UpdateUser
+                username={username}
+                password={password}
+                email={email}
+                handleSubmit={handleSubmit}
+                handleUpdate={handleUpdate}
+            />
         </div>
     );
 }
-
