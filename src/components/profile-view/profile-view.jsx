@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Form from 'react-bootstrap/Form';
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import "./profile-view.scss";
 import UserInfo from "./user-info";

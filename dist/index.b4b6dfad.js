@@ -27096,119 +27096,6 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$f7a6.prelude(module);
 
 try {
-// import { useState, useEffect } from "react";
-// import { MovieCard } from "../movie-card/movie-card";
-// import { MovieView } from "../movie-view/movie-view";
-// import { LoginView } from "../login-view/login-view";
-// import { SignupView } from "../signup-view/signup-view";
-// import Row from "react-bootstrap/Row";
-// import Col from 'react-bootstrap/Col';
-// export const MainView = () => {
-//   // Check for a stored user and token in localStorage and set the state accordingly
-//   const storedUser = JSON.parse(localStorage.getItem("user"));
-//   const storedToken = localStorage.getItem("token");
-//   const [user, setUser] = useState(storedUser ? storedUser : null);
-//   const [token, setToken] = useState(storedToken ? storedToken : null);
-//   // State for movies and the currently selected movie
-//   const [movies, setMovies] = useState([]);
-//   const [selectedMovie, setSelectedMovie] = useState(null);
-//   // useEffect hook allows React to perform side effects in component e.g fetching data
-//   useEffect(() => {
-//     // If there is no token, return early
-//     if (!token) {
-//       return;
-//     }
-//     // Fetch movies from the API using the token for authorization
-//     fetch("https://moviepi24.herokuapp.com/movies", {
-//       headers: { Authorization: `Bearer ${token}` }
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         // Convert the API response to the desired format and set the movies state
-//         const moviesFromApi = data.map((movie) => {
-//           return {
-//             // value names match to API database
-//             id: movie._id,
-//             title: movie.Title,
-//             image: movie.ImagePath,
-//             description: movie.Description,
-//             genre: movie.Genre.Name,
-//             director: movie.Director.Name,
-//             release: movie.Release
-//           }
-//         });
-//         setMovies(moviesFromApi);
-//       })
-//   }, [token])
-//   // If the user is not logged in, display the login and signup forms
-//   if (!user) {
-//     return (
-//       <Row>
-//         <Col md={5}>
-//           <LoginView onLoggedIn={(user, token) => {
-//             setUser(user);
-//             setToken(token);
-//           }} />
-//           or
-//           <SignupView />
-//         </Col>
-//       </Row>
-//     )
-//   }
-//   // If a movie is selected, display the movie view
-//   if (selectedMovie) {
-//     return (
-//       <Row className="justify-content-md-center">
-//         <button onClick={() => {
-//           setUser(null); setToken(null); localStorage.clear();
-//         }}
-//         > Logout
-//         </button>
-//         <Col md={8} style={{ border: "1px solid black" }}>
-//           <MovieView style={{ border: "1px solid green" }} movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-//         </Col>
-//       </Row>
-//     );
-//   }
-//   // If there are no movies, display a message
-//   if (movies.length === 0) {
-//     return (
-//       <Row>
-//         <button onClick={() => {
-//           setUser(null); setToken(null); localStorage.clear();
-//         }}
-//         > Logout
-//         </button>
-//         <div>The list is empty!</div>
-//       </Row>
-//     );
-//   }
-//   // If no movie is selected, display a list of MOVIE CARDS
-//   return (
-//     <Row>
-//       <button
-//         onClick={() => {
-//           setUser(null);
-//           setToken(null);
-//           localStorage.clear();
-//         }}
-//       >
-//         Logout
-//       </button>
-//       {movies.map((movie) => (
-//         <Col className="mb-5" key={movie.id} md={3}>
-//           <MovieCard
-//             key={movie._id}
-//             movie={movie}
-//             onMovieClick={(newSelectedMovie) => {
-//               setSelectedMovie(newSelectedMovie);
-//             }}
-//           />
-//         </Col>
-//       ))}
-//     </Row>
-//   );
-// }
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MainView", ()=>MainView);
@@ -27262,7 +27149,7 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 172,
+                lineNumber: 48,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -27281,7 +27168,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 180,
+                            lineNumber: 56,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27298,7 +27185,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 194,
+                            lineNumber: 70,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27311,7 +27198,7 @@ const MainView = ()=>{
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 209,
+                            lineNumber: 85,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27331,7 +27218,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 219,
+                            lineNumber: 95,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27354,24 +27241,24 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 236,
+                            lineNumber: 112,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 179,
+                    lineNumber: 55,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 178,
+                lineNumber: 54,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 171,
+        lineNumber: 47,
         columnNumber: 5
     }, undefined);
 };
@@ -27473,7 +27360,7 @@ MovieCard.propTypes = {
         ImagePath: (0, _propTypesDefault.default).string.isRequired,
         Featured: (0, _propTypesDefault.default).bool.isRequired
     }).isRequired,
-    onMovieClick: (0, _propTypesDefault.default).func.isRequired
+    onMovieClick: (0, _propTypesDefault.default).func
 };
 MovieCard.defaultProps = {
     movie: {
@@ -46939,12 +46826,6 @@ parcelHelpers.export(exports, "ProfileView", ()=>ProfileView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _form = require("react-bootstrap/Form");
-var _formDefault = parcelHelpers.interopDefault(_form);
-var _button = require("react-bootstrap/Button");
-var _buttonDefault = parcelHelpers.interopDefault(_button);
-var _card = require("react-bootstrap/Card");
-var _cardDefault = parcelHelpers.interopDefault(_card);
 var _reactRouterDom = require("react-router-dom");
 var _profileViewScss = require("./profile-view.scss");
 var _userInfo = require("./user-info");
@@ -46992,14 +46873,14 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 email: email
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 48,
+                lineNumber: 45,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
                 favoriteMovieList: favoriteMovieList
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 49,
+                lineNumber: 46,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateUserDefault.default), {
@@ -47010,13 +46891,13 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 handleUpdate: handleUpdate
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 50,
+                lineNumber: 47,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 47,
+        lineNumber: 44,
         columnNumber: 9
     }, this);
 }
@@ -47030,7 +46911,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"g3qxX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4bQA4","react/jsx-dev-runtime":"iTorj","react-bootstrap/Form":"iBZ80","react-bootstrap/Button":"aPzUt","react-bootstrap/Card":"lAynp","react-router-dom":"9xmpe","./profile-view.scss":"eyKYH","./user-info":"66eot","./favorite-movies":"dTTQH","./update-user":"2SBwg","../movie-card/movie-card":"bwuIu"}],"eyKYH":[function() {},{}],"66eot":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"g3qxX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4bQA4","react/jsx-dev-runtime":"iTorj","react-router-dom":"9xmpe","./profile-view.scss":"eyKYH","./user-info":"66eot","./favorite-movies":"dTTQH","./update-user":"2SBwg","../movie-card/movie-card":"bwuIu"}],"eyKYH":[function() {},{}],"66eot":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1330 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
