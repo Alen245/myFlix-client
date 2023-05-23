@@ -1,3 +1,11 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./profile-view.scss";
+import UserInfo from "./user-info";
+import FavoriteMovies from "./favorite-movies";
+import UpdateUser from "./update-user";
+import { MovieCard } from "../movie-card/movie-card";
+
 export function ProfileView({ movies, onUpdatedUserInfo }) {
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
@@ -15,42 +23,45 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
     }, [user]);
 
     const favoriteMovieList = movies.filter((movie) => {
-        return user?.FavoriteMovies.includes(movie.id);
+        // Filter movies here
+        return user?.FavoriteMovies.includes(movie._id);
     });
 
-    const handleSubmit = () => {
-        updateUser(username, password, email);
-    };
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-    const removeFavoriteMovie = (id) => {
-        const updatedUser = { ...user };
-        const favoriteMovies = updatedUser.FavoriteMovies.filter(
-            (movieId) => movieId !== id
-        );
-        updatedUser.FavoriteMovies = favoriteMovies;
-        setUser(updatedUser);
-    };
-
-    const handleUpdate = (event) => {
-        const { name, value } = event.target;
-        if (name === "Username") {
-            setUsername(value);
-        } else if (name === "password") {
-            setPassword(value);
-        } else if (name === "email") {
-            setEmail(value);
-        }
-    };
-
-    const updateUser = (username, password, email) => {
         const updatedUser = {
             ...user,
             Username: username,
             Password: password,
-            Email: email
+            Email: email,
         };
-        setUser(updatedUser);
+        // Call the onUpdatedUserInfo function to update the user information
         onUpdatedUserInfo(updatedUser);
+    };
+
+    const removeFav = (id) => {
+
+
+    };
+
+    const handleUpdate = (event) => {
+        event.preventDefault();
+
+        const { name, value } = event.target;
+        switch (name) {
+            case "Username":
+                setUsername(value);
+                break;
+            case "password":
+                setPassword(value);
+                break;
+            case "email":
+                setEmail(value);
+                break;
+            default:
+                break;
+        }
     };
 
     return (
@@ -58,13 +69,14 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
             <UserInfo username={username} email={email} />
             <FavoriteMovies
                 favoriteMovieList={favoriteMovieList}
-                removeFav={removeFavoriteMovie}
+                onRemoveFavorite={removeFav}
             />
             <UpdateUser
-                user={user}
+                username={username}
+                password={password}
+                email={email}
                 handleSubmit={handleSubmit}
                 handleUpdate={handleUpdate}
-                updateUser={updateUser}
             />
         </div>
     );
