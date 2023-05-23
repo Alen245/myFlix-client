@@ -27621,7 +27621,7 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 57,
+                lineNumber: 58,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -27640,7 +27640,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 68,
+                            lineNumber: 69,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27657,7 +27657,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 85,
+                            lineNumber: 86,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27671,7 +27671,7 @@ const MainView = ()=>{
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 102,
+                            lineNumber: 103,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27691,7 +27691,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 114,
+                            lineNumber: 115,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27714,24 +27714,24 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 133,
+                            lineNumber: 134,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 66,
+                    lineNumber: 67,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 65,
+                lineNumber: 66,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 55,
+        lineNumber: 56,
         columnNumber: 5
     }, undefined);
 };
@@ -46847,7 +46847,7 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9YtA0":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-router-dom":"9xmpe"}],"9YtA0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$9fee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -46998,15 +46998,15 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SignupView", ()=>SignupView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactBootstrap = require("react-bootstrap");
+var _react = require("react"); // Import useState hook from React
+var _reactBootstrap = require("react-bootstrap"); // Import Form and Button components from react-bootstrap library
 var _s = $RefreshSig$();
 const SignupView = ()=>{
     _s();
-    const [username, setUsername] = (0, _react.useState)("");
-    const [password, setPassword] = (0, _react.useState)("");
-    const [email, setEmail] = (0, _react.useState)("");
-    const [birthday, setBirthday] = (0, _react.useState)("");
+    const [username, setUsername] = (0, _react.useState)(""); // Initialize username state
+    const [password, setPassword] = (0, _react.useState)(""); // Initialize password state
+    const [email, setEmail] = (0, _react.useState)(""); // Initialize email state
+    const [birthday, setBirthday] = (0, _react.useState)(""); // Initialize birthday state
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
@@ -47015,6 +47015,7 @@ const SignupView = ()=>{
             Email: email,
             Birthday: birthday
         };
+        // Send a POST request to the server with user signup data
         fetch("https://moviepi24.herokuapp.com/users", {
             method: "POST",
             body: JSON.stringify(data),
@@ -47023,9 +47024,9 @@ const SignupView = ()=>{
             }
         }).then((response)=>{
             if (response.ok) {
-                alert("Signup successful");
-                window.location.reload();
-            } else alert("Signup failed");
+                alert("Signup successful"); // Display success message
+                window.location.reload(); // Reload the page
+            } else alert("Signup failed"); // Display failure message
         });
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -47038,7 +47039,7 @@ const SignupView = ()=>{
                         children: "Username:"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 38,
+                        lineNumber: 40,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47049,13 +47050,13 @@ const SignupView = ()=>{
                         minLength: "3"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 39,
+                        lineNumber: 41,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 37,
+                lineNumber: 39,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47065,7 +47066,7 @@ const SignupView = ()=>{
                         children: "Email:"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 48,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47075,13 +47076,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 49,
+                        lineNumber: 53,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 47,
+                lineNumber: 51,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47091,7 +47092,7 @@ const SignupView = ()=>{
                         children: "Password:"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 58,
+                        lineNumber: 63,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47101,13 +47102,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 59,
+                        lineNumber: 64,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 57,
+                lineNumber: 62,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47117,7 +47118,7 @@ const SignupView = ()=>{
                         children: "Date of Birth:"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 68,
+                        lineNumber: 74,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47127,13 +47128,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 69,
+                        lineNumber: 75,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 67,
+                lineNumber: 73,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -47142,13 +47143,13 @@ const SignupView = ()=>{
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 77,
+                lineNumber: 84,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/signup-view/signup-view.jsx",
-        lineNumber: 36,
+        lineNumber: 37,
         columnNumber: 5
     }, undefined);
 };

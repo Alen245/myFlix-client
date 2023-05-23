@@ -21,6 +21,7 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]); // Initialize movies state with an empty array
   const [selectedMovie, setSelectedMovie] = useState(null); // Initialize selectedMovie state as null
 
+
   useEffect(() => {
     // Effect runs only once (equivalent to componentDidMount)
     // Executes after the component is mounted
