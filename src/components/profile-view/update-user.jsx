@@ -8,21 +8,21 @@ export default function UpdateUser({ user, handleSubmit, handleUpdate }) {
             <input
                 type="text"
                 name="Username"
-                defaultValue={user?.username}
+                defaultValue={user?.Username}
                 onChange={handleUpdate}
             />
             <label>Password:</label>
             <input
                 type="password"
                 name="password"
-                defaultValue={user?.password}
+                defaultValue={user?.Password}
                 onChange={handleUpdate}
             />
             <label>Email address:</label>
             <input
                 type="email"
                 name="email"
-                defaultValue={user?.email}
+                defaultValue={user?.Email}
                 onChange={handleUpdate}
             />
             <button variant="primary" type="submit">
