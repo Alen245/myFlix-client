@@ -47329,9 +47329,11 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
             Email: email
         };
         // Call the onUpdatedUserInfo function to update the user information
-        onUpdatedUserInfo(updatedUser);
+        if (typeof onUpdatedUserInfo === "function") onUpdatedUserInfo(updatedUser);
     };
-    const removeFav = (id)=>{};
+    const removeFav = (id)=>{
+    // Handle removing favorite movie here
+    };
     const handleUpdate = (event)=>{
         event.preventDefault();
         const { name , value  } = event.target;
@@ -47356,7 +47358,7 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 email: email
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 69,
+                lineNumber: 70,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
@@ -47364,7 +47366,7 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 onRemoveFavorite: removeFav
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 70,
+                lineNumber: 71,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateUserDefault.default), {
@@ -47375,13 +47377,13 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 handleUpdate: handleUpdate
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 74,
+                lineNumber: 75,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 68,
+        lineNumber: 69,
         columnNumber: 9
     }, this);
 }
@@ -47395,7 +47397,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","react-router-dom":"9xmpe","./profile-view.scss":"eyKYH","../movie-card/movie-card":"bwuIu","./user-info":"66eot","./favorite-movies":"dTTQH","./update-user":"2SBwg"}],"eyKYH":[function() {},{}],"66eot":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","react-router-dom":"9xmpe","./profile-view.scss":"eyKYH","./user-info":"66eot","./favorite-movies":"dTTQH","./update-user":"2SBwg","../movie-card/movie-card":"bwuIu"}],"eyKYH":[function() {},{}],"66eot":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1330 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

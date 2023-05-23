@@ -37,12 +37,13 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
             Email: email,
         };
         // Call the onUpdatedUserInfo function to update the user information
-        onUpdatedUserInfo(updatedUser);
+        if (typeof onUpdatedUserInfo === "function") {
+            onUpdatedUserInfo(updatedUser);
+        }
     };
 
     const removeFav = (id) => {
-
-
+        // Handle removing favorite movie here
     };
 
     const handleUpdate = (event) => {
