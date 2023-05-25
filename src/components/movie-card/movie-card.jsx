@@ -43,4 +43,3 @@ MovieCard.defaultProps = {
   }
 };
 
-

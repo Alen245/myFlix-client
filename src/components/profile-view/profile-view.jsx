@@ -7,17 +7,17 @@ import UpdateUser from "./update-user";
 import { MovieCard } from "../movie-card/movie-card";
 
 export function ProfileView({ movies, onUpdatedUserInfo }) {
-    // Retrieve stored user from localStorage
+    // Retrieve the stored user from local storage
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    // Define state variables for user information
+    // Define state variables using the useState hook
     const [user, setUser] = useState(storedUser);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
 
-    // Set the username, password, and email values when the user changes
     useEffect(() => {
+        // Update the username, password, and email when the user state changes
         if (user) {
             setUsername(user.Username);
             setPassword(user.Password);
@@ -25,17 +25,16 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
         }
     }, [user]);
 
-    // Filter the movies based on user's favorite movies
+    // Filter the movies array to get the user's favorite movie list
     const favoriteMovieList = movies.filter((movie) => {
-        // Filter movies here
         return user?.FavoriteMovies.includes(movie._id);
     });
 
-    // Handle form submission when updating user information
+    // Handle the form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Create an updatedUser object with the new information
+        // Create an updatedUser object with the updated user information
         const updatedUser = {
             ...user,
             Username: username,
@@ -43,46 +42,58 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
             Email: email,
         };
 
-        // Call the onUpdatedUserInfo function to update the user information
+        // Invoke the onUpdatedUserInfo function if it is provided
         if (typeof onUpdatedUserInfo === "function") {
-            // Pass the updatedUser to the callback function
             onUpdatedUserInfo(updatedUser);
         }
     };
 
-    // Handle removing favorite movies
+    // Handle removing a favorite movie from the user's list
     const removeFav = (id) => {
         // Handle removing favorite movie here
     };
 
-    // Handle input changes for username, password, and email fields
-    const handleUpdate = (event) => {
-        event.preventDefault();
+    // Handle updating the user's information
+    const handleUpdate = (userObj) => {
+        // Retrieve the stored token from local storage
+        const storedToken = localStorage.getItem("token");
 
-        const { name, value } = event.target;
-        switch (name) {
-            case "Username":
-                setUsername(value);
-                break;
-            case "password":
-                setPassword(value);
-                break;
-            case "email":
-                setEmail(value);
-                break;
-            default:
-                break;
-        }
+        // Set the necessary headers for the PUT request
+        const myHeaders = {
+            "Content-Type": "application/JSON",
+            Authorization: `Bearer ${storedToken}`,
+        };
+
+        // Send a PUT request to update the user's information in the database
+        fetch(`https://moviepi24.herokuapp.com/users/${userObj.Username}`, {
+            method: "PUT",
+            headers: new Headers(myHeaders),
+            body: JSON.stringify(userObj),
+        })
+            .then((res) => res.json())
+            .then((response) => {
+                // Store the updated user object in local storage
+                localStorage.setItem("user", JSON.stringify(response));
+                // Update the user state with the response from the server
+                setUser(response);
+            })
+            .catch((error) => {
+                console.error("Error updating user:", error);
+            });
     };
 
-    // Render the profile view components
     return (
         <div>
+            {/* Render the UserInfo component and pass username and email as props */}
             <UserInfo username={username} email={email} />
+
+            {/* Render the FavoriteMovies component and pass favoriteMovieList and removeFav as props */}
             <FavoriteMovies
                 favoriteMovieList={favoriteMovieList}
                 onRemoveFavorite={removeFav}
             />
+
+            {/* Render the UpdateUser component and pass user, handleSubmit, and handleUpdate as props */}
             <UpdateUser
                 user={user}
                 handleSubmit={handleSubmit}
@@ -91,36 +102,3 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
         </div>
     );
 }
-
-// Handle user update
-    // const handleUpdate = (userObj) => {
-    //     // Retrieve the stored token from localStorage
-    //     const storedToken = localStorage.getItem("token");
-
-    //     // Define headers for the request
-    //     const myHeaders = {
-    //         "Content-Type": "application/JSON",
-    //         Authorization: `Bearer ${storedToken}`
-    //     };
-
-    //     console.log({ userObj });
-    //     // Handle update logic
-
-    //     // Perform the PUT request to update user information
-    //     fetch(`https://moviepi24.herokuapp.com/users/${username}`, {
-    //         method: "PUT",
-    //         headers: new Headers(myHeaders),
-    //         body: JSON.stringify(userObj)
-    //     })
-    //         .then((res) => res.json())
-    //         .then((response) => {
-    //             console.log({ response });
-    //             // Update the stored user information in localStorage
-    //             localStorage.setItem("user", JSON.stringify(response));
-    //             // Update state with the updated user information
-    //             setUsername(response.Username);
-    //             setPassword(response.Password);
-    //             setEmail(response.Email);
-    //             setUser(response);
-    //         });
-    // };
