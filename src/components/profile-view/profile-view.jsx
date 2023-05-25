@@ -91,3 +91,36 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
         </div>
     );
 }
+
+// Handle user update
+    // const handleUpdate = (userObj) => {
+    //     // Retrieve the stored token from localStorage
+    //     const storedToken = localStorage.getItem("token");
+
+    //     // Define headers for the request
+    //     const myHeaders = {
+    //         "Content-Type": "application/JSON",
+    //         Authorization: `Bearer ${storedToken}`
+    //     };
+
+    //     console.log({ userObj });
+    //     // Handle update logic
+
+    //     // Perform the PUT request to update user information
+    //     fetch(`https://moviepi24.herokuapp.com/users/${username}`, {
+    //         method: "PUT",
+    //         headers: new Headers(myHeaders),
+    //         body: JSON.stringify(userObj)
+    //     })
+    //         .then((res) => res.json())
+    //         .then((response) => {
+    //             console.log({ response });
+    //             // Update the stored user information in localStorage
+    //             localStorage.setItem("user", JSON.stringify(response));
+    //             // Update state with the updated user information
+    //             setUsername(response.Username);
+    //             setPassword(response.Password);
+    //             setEmail(response.Email);
+    //             setUser(response);
+    //         });
+    // };
