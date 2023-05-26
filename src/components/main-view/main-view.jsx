@@ -1,73 +1,153 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
+import Row from "react-bootstrap/Row";
+import Col from 'react-bootstrap/Col';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    {
-      id: 1,
-      title: "The Shawshank Redemption",
-      image:
-        "https://m.media-amazon.com/images/M/MV5BNzUzNzI0MjAxMl5BMl5BanBnXkFtZTgwMjQ2MjEyMDE@._V1_UX100_CR0,0,100,100_AL_.jpg",
-      director: "Frank Darabont",
-      genre: "Drama"
-    },
-    {
-      id: 2,
-      title: "The Godfather",
-      image:
-        "https://m.media-amazon.com/images/M/MV5BMTIyMTIxNjI5NF5BMl5BanBnXkFtZTcwNzQzNDM5MQ@@._V1_UX100_CR0,0,100,100_AL_.jpg",
-      director: "Francis Ford Coppola",
-      genre: "Drama"
-    },
-    {
-      id: 3,
-      title: "The Dark Knight",
-      image:
-        "https://m.media-amazon.com/images/M/MV5BNjU0ZTkyMzktOTk2Zi00ZjRiLTk3MTAtM2VjNTViN2FmM2RjXkEyXkFqcGdeQXVyMTA3MzQ4MTc0._V1_UX100_CR0,0,100,100_AL_.jpg",
-      director: "Christopher Nolan",
-      genre: "Action"
-    },
-    {
-      id: 4,
-      title: "Pulp Fiction",
-      image:
-        "https://m.media-amazon.com/images/M/MV5BMTkxMTA5OTAzMl5BMl5BanBnXkFtZTgwNjA5MDc3NjE@._V1_UX100_CR0,0,100,100_AL_.jpg",
-      director: "Quentin Tarantino",
-      genre: "Crime"
-    },
-    {
-      id: 5,
-      title: "The Lord of the Rings: The Fellowship of the Ring",
-      image:
-        "https://m.media-amazon.com/images/M/MV5BMTU0MzY3NDM4NF5BMl5BanBnXkFtZTYwMDEyNDA5._V1_UX100_CR0,0,100,100_AL_.jpg",
-      director: "Peter Jackson",
-      genre: "Fantasy"
-    }
-  ]);
-
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(""); // State for the search query
 
-  if (selectedMovie) {
-    return (
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-    );
-  }
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+    fetch("https://moviepi24.herokuapp.com/movies")
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => {
+          return {
+            id: movie._id,
+            title: movie.Title,
+            image: movie.ImagePath,
+            description: movie.Description,
+            genre: movie.Genre.Name,
+            director: movie.Director.Name,
+            release: movie.Release
+          };
+        });
+        setMovies(moviesFromApi);
+      });
+  }, []);
 
-  if (movies.length === 0) {
-    return <div>The list is empty!</div>;
-  }
-  return (
-    <div>
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-          }}
-        />
-      ))}
-    </div>
+  // Filter movies based on the search query
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  return (
+    <BrowserRouter>
+      {/* Render the NavigationBar component */}
+      <NavigationBar
+        user={user} // Pass the user state as a prop
+        onLoggedOut={() => {
+          setUser(null); // Function to set the user state to null (logout functionality)
+        }}
+        onSearch={(query) => setSearchQuery(query)}
+      />
+
+      {/* Create a row and center its content */}
+      <Row className="justify-content-md-center">
+        <Routes>
+          {/* Define a route for the signup page */}
+          <Route
+            path="/signup"
+            element={
+              <>
+                {/* If user is logged in, navigate to the homepage; otherwise, render the SignupView */}
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <SignupView />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
+          {/* Define a route for the login page */}
+          <Route
+            path="/login"
+            element={
+              <>
+                {/* If user is logged in, navigate to the homepage; otherwise, render the LoginView */}
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <LoginView onLoggedIn={(user) => setUser(user)} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
+          {/* Define a route for the profile page */}
+          <Route
+            path="/profile"
+            element={
+              !user ? (
+                <Navigate to="/login" replace /> // If user is not logged in, navigate to the login page; otherwise, render the ProfileView
+              ) : (
+                <ProfileView movies={movies} />
+              )
+            }
+          />
+
+          {/* Define a route for a specific movie page */}
+          <Route
+            path="/movies/:id"
+            element={
+              <>
+                {/* If user is not logged in, navigate to the login page; if movies list is empty, show a message; otherwise, render the MovieView */}
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <Col md={8}>
+                    <MovieView movies={movies} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
+          {/* Define a route for the homepage */}
+          <Route
+            path="/"
+            element={
+              <>
+                {/* If user is not logged in, navigate to the login page; if movies list is empty, show a message; otherwise, render the MovieCard components */}
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : filteredMovies.length === 0 ? (
+                  <Col>No movies found!</Col>
+                ) : (
+                  <>
+                    {filteredMovies.map((movie) => (
+                      <Col className="mb-4" key={movie.id} md={3}>
+                        <MovieCard movie={movie} />
+                      </Col>
+                    ))}
+                  </>
+                )}
+              </>
+            }
+          />
+        </Routes>
+      </Row>
+    </BrowserRouter>
+  )
 };
