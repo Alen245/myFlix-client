@@ -47329,7 +47329,9 @@ $parcel$ReactRefreshHelpers$3c12.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ProfileView", ()=>ProfileView);
+// Profile view component
+parcelHelpers.export(exports, "ProfileView", ()=>ProfileView) // let hashedPassword = Users.hashPassword(req.body.Password);
+;
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
@@ -47345,15 +47347,15 @@ var _movieCard = require("../movie-card/movie-card");
 var _s = $RefreshSig$();
 function ProfileView({ movies , onUpdatedUserInfo  }) {
     _s();
-    // Retrieve the stored user from local storage
+    // Retrieve stored user from localStorage
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    // Define state variables using the useState hook
+    // Define state variables for user information
     const [user, setUser] = (0, _react.useState)(storedUser);
     const [username, setUsername] = (0, _react.useState)("");
     const [password, setPassword] = (0, _react.useState)("");
     const [email, setEmail] = (0, _react.useState)("");
+    // Set the username, password, and email values when the user changes
     (0, _react.useEffect)(()=>{
-        // Update the username, password, and email when the user state changes
         if (user) {
             setUsername(user.Username);
             setPassword(user.Password);
@@ -47362,50 +47364,61 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
     }, [
         user
     ]);
-    // Filter the movies array to get the user's favorite movie list
+    // Filter the movies based on user's favorite movies
     const favoriteMovieList = movies.filter((movie)=>{
+        // Filter movies here
         return user?.FavoriteMovies.includes(movie._id);
     });
-    // Handle the form submission
+    // Handle form submission when updating user information
     const handleSubmit = async (event)=>{
         event.preventDefault();
-        // Create an updatedUser object with the updated user information
+        // Create an updatedUser object with the new information
         const updatedUser = {
             ...user,
             Username: username,
             Password: password,
             Email: email
         };
-        // Invoke the onUpdatedUserInfo function if it is provided
-        if (typeof onUpdatedUserInfo === "function") onUpdatedUserInfo(updatedUser);
+        // Call the onUpdatedUserInfo function to update the user information
+        if (typeof onUpdatedUserInfo === "function") // Pass the updatedUser to the callback function
+        onUpdatedUserInfo(updatedUser);
     };
-    // Handle removing a favorite movie from the user's list
+    // Handle removing favorite movies
     const removeFav = (id)=>{
     // Handle removing favorite movie here
     };
-    // Handle updating the user's information
+    // Handle user update
     const handleUpdate = (userObj)=>{
-        // Retrieve the stored token from local storage
+        // Retrieve the stored token from localStorage
         const storedToken = localStorage.getItem("token");
-        // Set the necessary headers for the PUT request
+        // Define headers for the request
         const myHeaders = {
             "Content-Type": "application/JSON",
             Authorization: `Bearer ${storedToken}`
         };
-        // Send a PUT request to update the user's information in the database
-        fetch(`https://moviepi24.herokuapp.com/users/${userObj.Username}`, {
+        console.log({
+            userObj
+        });
+        // Handle update logic
+        // Perform the PUT request to update user information
+        fetch(`https://moviepi24.herokuapp.com/users/${username}`, {
             method: "PUT",
             headers: new Headers(myHeaders),
             body: JSON.stringify(userObj)
         }).then((res)=>res.json()).then((response)=>{
-            // Store the updated user object in local storage
+            console.log({
+                response
+            });
+            // Update the stored user information in localStorage
             localStorage.setItem("user", JSON.stringify(response));
-            // Update the user state with the response from the server
+            // Update state with the updated user information
+            setUsername(response.Username);
+            setPassword(response.Password);
+            setEmail(response.Email);
             setUser(response);
-        }).catch((error)=>{
-            console.error("Error updating user:", error);
         });
     };
+    // Render the profile view components
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userInfoDefault.default), {
@@ -47413,7 +47426,7 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 email: email
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 88,
+                lineNumber: 96,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
@@ -47421,7 +47434,7 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 onRemoveFavorite: removeFav
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 91,
+                lineNumber: 99,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateUserDefault.default), {
@@ -47430,13 +47443,13 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 handleUpdate: handleUpdate
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 97,
+                lineNumber: 105,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 86,
+        lineNumber: 94,
         columnNumber: 9
     }, this);
 }
@@ -47450,7 +47463,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","./profile-view.scss":"eyKYH","./user-info":"66eot","./favorite-movies":"dTTQH","./update-user":"2SBwg","../movie-card/movie-card":"bwuIu"}],"eyKYH":[function() {},{}],"66eot":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","react-router-dom":"9xmpe","./profile-view.scss":"eyKYH","./user-info":"66eot","./favorite-movies":"dTTQH","./update-user":"2SBwg","../movie-card/movie-card":"bwuIu"}],"eyKYH":[function() {},{}],"66eot":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1330 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -47593,20 +47606,24 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _s = $RefreshSig$();
 function UpdateUser({ user , handleUpdate  }) {
     _s();
-    const [username, setUsername] = (0, _react.useState)(user.Username);
-    const [password, setPassword] = (0, _react.useState)("");
-    const [email, setEmail] = (0, _react.useState)(user.Email);
+    // Declare UpdateUser component as default export, taking props: user and handleUpdate
+    // Initialize state variables using useState hook
+    const [username, setUsername] = (0, _react.useState)(user.Username); // State for username with initial value from user prop
+    const [password, setPassword] = (0, _react.useState)(""); // State for password with initial empty string
+    const [email, setEmail] = (0, _react.useState)(user.Email); // State for email with initial value from user prop
     const handleClick = ()=>{
+        // Define handleClick function triggered on button click
         if (!username || !password || !email) {
+            // Check if any of the fields are empty
             console.log("do something");
-            return;
+            return; // Exit the function if any field is empty
         }
         const userObj = {
             Email: email,
             Password: password,
             Username: username
         };
-        handleUpdate(userObj);
+        handleUpdate(userObj); // Call handleUpdate function with the userObj parameter
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "profile-form",
@@ -47615,14 +47632,14 @@ function UpdateUser({ user , handleUpdate  }) {
                 children: "Want to change some info?"
             }, void 0, false, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 22,
+                lineNumber: 35,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                 children: "Username:"
             }, void 0, false, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 23,
+                lineNumber: 37,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -47632,7 +47649,14 @@ function UpdateUser({ user , handleUpdate  }) {
                 onChange: (e)=>setUsername(e.target.value)
             }, void 0, false, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 24,
+                lineNumber: 39,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                children: "Password:"
+            }, void 0, false, {
+                fileName: "src/components/profile-view/update-user.jsx",
+                lineNumber: 47,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -47642,7 +47666,14 @@ function UpdateUser({ user , handleUpdate  }) {
                 onChange: (e)=>setPassword(e.target.value)
             }, void 0, false, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 31,
+                lineNumber: 49,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                children: "Email:"
+            }, void 0, false, {
+                fileName: "src/components/profile-view/update-user.jsx",
+                lineNumber: 57,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -47652,7 +47683,7 @@ function UpdateUser({ user , handleUpdate  }) {
                 onChange: (e)=>setEmail(e.target.value)
             }, void 0, false, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 38,
+                lineNumber: 59,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -47661,13 +47692,13 @@ function UpdateUser({ user , handleUpdate  }) {
                 children: "Update"
             }, void 0, false, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 45,
+                lineNumber: 67,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/update-user.jsx",
-        lineNumber: 21,
+        lineNumber: 33,
         columnNumber: 9
     }, this);
 } // import React from 'react';
