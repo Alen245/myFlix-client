@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "./profile-view.scss";
 import UserInfo from "./user-info";
 import FavoriteMovies from "./favorite-movies";
 import UpdateUser from "./update-user";
-import { MovieCard } from "../movie-card/movie-card";
 
 // Profile view component
 export function ProfileView({ movies, onUpdatedUserInfo }) {
@@ -23,6 +21,10 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
             setUsername(user.Username);
             setPassword(user.Password);
             setEmail(user.Email);
+        } else {
+            setUsername("");
+            setPassword("");
+            setEmail("");
         }
     }, [user]);
 
@@ -109,5 +111,3 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
         </div>
     );
 }
-
-
