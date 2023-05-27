@@ -78,7 +78,6 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
         })
             .then((res) => res.json())
             .then((response) => {
-                console.log({ response });
                 // Update the stored user information in localStorage
                 localStorage.setItem("user", JSON.stringify(response));
                 // Update state with the updated user information
