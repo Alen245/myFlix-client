@@ -18,9 +18,9 @@ export const MovieView = ({ movies }) => {
   };
 
   const isFaveMovie = () => {
-    const favMovies = storedUser.FavoriteMovies
-    // implement this
-  }
+    const favMovies = storedUser.FavoriteMovies;
+    return favMovies.includes(movie.id);
+  };
 
   const addToFavorites = () => {
     fetch(`https://moviepi24.herokuapp.com/users/${storedUser.Username}/movies/${movie.id}`, {
@@ -30,9 +30,24 @@ export const MovieView = ({ movies }) => {
       .then((res) => res.json())
       .then((response) => {
         localStorage.setItem("user", JSON.stringify(response));
-
+        // Refresh the page to reflect the updated movie status
+        window.location.reload();
       });
   };
+
+  const removeFromFavorites = () => {
+    fetch(`https://moviepi24.herokuapp.com/users/${storedUser.Username}/movies/${movie.id}`, {
+      method: "DELETE",
+      headers: new Headers(myHeaders),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        localStorage.setItem("user", JSON.stringify(response));
+        // Refresh the page to reflect the updated movie status
+        window.location.reload();
+      });
+  };
+
   return (
     <div>
       <div>{movie.image && <img className="w-100" src={movie.image} />}</div>
@@ -48,13 +63,18 @@ export const MovieView = ({ movies }) => {
         <span>Description: </span>
         <span>{movie.description}</span>
       </div>
-      <Button onClick={addToFavorites}>Add to favorites</Button>
+      {isFaveMovie() ? (
+        <Button onClick={removeFromFavorites}>Remove from favorites</Button>
+      ) : (
+        <Button onClick={addToFavorites}>Add to favorites</Button>
+      )}
       <Link to={`/`}>
         <button className="back-button">Back</button>
       </Link>
     </div>
   );
 };
+
 
 //if movie is in in favorites render removeFromFave btn else render add to favorites
 
