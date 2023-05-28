@@ -46857,6 +46857,10 @@ const MovieView = ({ movies  })=>{
     }, undefined);
 }; //if movie is in in favorites render removeFromFave btn else render add to favorites
  // removeBtn <Button onClick={removeFromFavorites}>Remove from favorites</Button>
+ //if movie is in in favorites render removeFromFave btn else render add to favorites
+ // removeBtn <Button onClick={removeFromFavorites}>Remove from favorites</Button>
+ //if movie is in in favorites render removeFromFave btn else render add to favorites
+ // removeBtn <Button onClick={removeFromFavorites}>Remove from favorites</Button>
 _s(MovieView, "yQgCIz/jJfqV1l9s2yoba81MT5A=", false, function() {
     return [
         (0, _reactRouterDom.useParams)

@@ -79,3 +79,11 @@ export const MovieView = ({ movies }) => {
 //if movie is in in favorites render removeFromFave btn else render add to favorites
 
 // removeBtn <Button onClick={removeFromFavorites}>Remove from favorites</Button>
+
+//if movie is in in favorites render removeFromFave btn else render add to favorites
+
+// removeBtn <Button onClick={removeFromFavorites}>Remove from favorites</Button>
+
+//if movie is in in favorites render removeFromFave btn else render add to favorites
+
+// removeBtn <Button onClick={removeFromFavorites}>Remove from favorites</Button>
