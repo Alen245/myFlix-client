@@ -1,22 +1,28 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { MovieCard } from "../movie-card/movie-card";
 
-export default function FavoriteMovies({ favoriteMovieList }) {
+export default function FavoriteMovies({ favoriteMovieList, onRemoveFavorite }) {
+    const removeFav = (id) => {
+        if (typeof onRemoveFavorite === "function") {
+            onRemoveFavorite(id);
+        }
+    };
+
     return (
         <div>
             <h2>Favorite Movies</h2>
-            {favoriteMovieList.map((movies) => {
-                return (
-                    <div key={movies._id}>
-                        <img src={movies.ImagePath} />
-                        <Link to={`/movies/${movies._id}`}>
-                            <h4>{movies.Title}</h4>
-                        </Link>
-                        <button variant="secondary" onClick={() => removeFav(movies._id)}>Remove From List</button>
-                    </div>
-                )
-            })
-            }
+            {favoriteMovieList.map((movie) => (
+                <div key={movie.id}>
+                    <MovieCard movie={movie} />
+                    <button
+                        variant="secondary"
+                        onClick={() => removeFav(movie.id)}
+                    >
+                        Remove From List
+                    </button>
+                </div>
+            ))}
         </div>
-    )
+    );
 }
