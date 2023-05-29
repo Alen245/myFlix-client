@@ -47368,6 +47368,7 @@ parcelHelpers.export(exports, "ProfileView", ()=>ProfileView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactRouterDom = require("react-router-dom");
 var _profileViewScss = require("./profile-view.scss");
 var _userInfo = require("./user-info");
 var _userInfoDefault = parcelHelpers.interopDefault(_userInfo);
@@ -47375,6 +47376,7 @@ var _favoriteMovies = require("./favorite-movies");
 var _favoriteMoviesDefault = parcelHelpers.interopDefault(_favoriteMovies);
 var _updateUser = require("./update-user");
 var _updateUserDefault = parcelHelpers.interopDefault(_updateUser);
+var _movieCard = require("../movie-card/movie-card");
 var _s = $RefreshSig$();
 function ProfileView({ movies , onUpdatedUserInfo  }) {
     _s();
@@ -47391,10 +47393,6 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
             setUsername(user.Username);
             setPassword(user.Password);
             setEmail(user.Email);
-        } else {
-            setUsername("");
-            setPassword("");
-            setEmail("");
         }
     }, [
         user
@@ -47441,6 +47439,9 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
             headers: new Headers(myHeaders),
             body: JSON.stringify(userObj)
         }).then((res)=>res.json()).then((response)=>{
+            console.log({
+                response
+            });
             // Update the stored user information in localStorage
             localStorage.setItem("user", JSON.stringify(response));
             // Update state with the updated user information
@@ -47458,7 +47459,7 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 email: email
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 97,
+                lineNumber: 96,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
@@ -47466,7 +47467,7 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 onRemoveFavorite: removeFav
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 100,
+                lineNumber: 99,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateUserDefault.default), {
@@ -47475,13 +47476,13 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 handleUpdate: handleUpdate
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 106,
+                lineNumber: 105,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 95,
+        lineNumber: 94,
         columnNumber: 9
     }, this);
 }
@@ -47495,7 +47496,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","./profile-view.scss":"eyKYH","./user-info":"66eot","./favorite-movies":"dTTQH","./update-user":"2SBwg"}],"eyKYH":[function() {},{}],"66eot":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","./profile-view.scss":"eyKYH","./user-info":"66eot","./favorite-movies":"dTTQH","./update-user":"2SBwg","../movie-card/movie-card":"bwuIu"}],"eyKYH":[function() {},{}],"66eot":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1330 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

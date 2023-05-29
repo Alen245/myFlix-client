@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./profile-view.scss";
 import UserInfo from "./user-info";
 import FavoriteMovies from "./favorite-movies";
 import UpdateUser from "./update-user";
+import { MovieCard } from "../movie-card/movie-card";
 
 // Profile view component
 export function ProfileView({ movies, onUpdatedUserInfo }) {
@@ -21,10 +23,6 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
             setUsername(user.Username);
             setPassword(user.Password);
             setEmail(user.Email);
-        } else {
-            setUsername("");
-            setPassword("");
-            setEmail("");
         }
     }, [user]);
 
@@ -80,6 +78,7 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
         })
             .then((res) => res.json())
             .then((response) => {
+                console.log({ response });
                 // Update the stored user information in localStorage
                 localStorage.setItem("user", JSON.stringify(response));
                 // Update state with the updated user information
@@ -111,3 +110,4 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
         </div>
     );
 }
+
