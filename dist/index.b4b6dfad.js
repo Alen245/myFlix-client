@@ -47363,7 +47363,6 @@ $parcel$ReactRefreshHelpers$3c12.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-// Profile view component
 parcelHelpers.export(exports, "ProfileView", ()=>ProfileView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
@@ -47380,14 +47379,11 @@ var _movieCard = require("../movie-card/movie-card");
 var _s = $RefreshSig$();
 function ProfileView({ movies , onUpdatedUserInfo  }) {
     _s();
-    // Retrieve stored user from localStorage
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    // Define state variables for user information
     const [user, setUser] = (0, _react.useState)(storedUser);
     const [username, setUsername] = (0, _react.useState)("");
     const [password, setPassword] = (0, _react.useState)("");
     const [email, setEmail] = (0, _react.useState)("");
-    // Set the username, password, and email values when the user changes
     (0, _react.useEffect)(()=>{
         if (user) {
             setUsername(user.Username);
@@ -47397,61 +47393,23 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
     }, [
         user
     ]);
-    // Filter the movies based on user's favorite movies
-    const favoriteMovieList = movies.filter((movie)=>{
-        // Filter movies here
-        return user?.FavoriteMovies.includes(movie._id);
-    });
-    // Handle form submission when updating user information
+    const favoriteMovieList = movies.filter((movie)=>user?.FavoriteMovies.includes(movie.id));
     const handleSubmit = async (event)=>{
         event.preventDefault();
-        // Create an updatedUser object with the new information
         const updatedUser = {
             ...user,
             Username: username,
             Password: password,
             Email: email
         };
-        // Call the onUpdatedUserInfo function to update the user information
-        if (typeof onUpdatedUserInfo === "function") // Pass the updatedUser to the callback function
-        onUpdatedUserInfo(updatedUser);
+        if (typeof onUpdatedUserInfo === "function") onUpdatedUserInfo(updatedUser);
     };
-    // Handle removing favorite movies
     const removeFav = (id)=>{
     // Handle removing favorite movie here
     };
-    // Handle user update
     const handleUpdate = (userObj)=>{
-        // Retrieve the stored token from localStorage
-        const storedToken = localStorage.getItem("token");
-        // Define headers for the request
-        const myHeaders = {
-            "Content-Type": "application/JSON",
-            Authorization: `Bearer ${storedToken}`
-        };
-        console.log({
-            userObj
-        });
-        // Handle update logic
-        // Perform the PUT request to update user information
-        fetch(`https://moviepi24.herokuapp.com/users/${username}`, {
-            method: "PUT",
-            headers: new Headers(myHeaders),
-            body: JSON.stringify(userObj)
-        }).then((res)=>res.json()).then((response)=>{
-            console.log({
-                response
-            });
-            // Update the stored user information in localStorage
-            localStorage.setItem("user", JSON.stringify(response));
-            // Update state with the updated user information
-            setUsername(response.Username);
-            setPassword(response.Password);
-            setEmail(response.Email);
-            setUser(response);
-        });
+    // Handle update logic
     };
-    // Render the profile view components
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userInfoDefault.default), {
@@ -47459,15 +47417,29 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 email: email
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 96,
+                lineNumber: 54,
                 columnNumber: 13
             }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
-                favoriteMovieList: favoriteMovieList,
-                onRemoveFavorite: removeFav
-            }, void 0, false, {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        children: "Favorite Movies"
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 57,
+                        columnNumber: 17
+                    }, this),
+                    favoriteMovieList.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                            movie: movie
+                        }, movie.id, false, {
+                            fileName: "src/components/profile-view/profile-view.jsx",
+                            lineNumber: 59,
+                            columnNumber: 21
+                        }, this))
+                ]
+            }, void 0, true, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 99,
+                lineNumber: 56,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateUserDefault.default), {
@@ -47476,13 +47448,13 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 handleUpdate: handleUpdate
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 105,
+                lineNumber: 63,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 94,
+        lineNumber: 53,
         columnNumber: 9
     }, this);
 }
@@ -47557,6 +47529,7 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactRouterDom = require("react-router-dom");
+var _movieCard = require("../movie-card/movie-card");
 function FavoriteMovies({ favoriteMovieList , onRemoveFavorite  }) {
     const removeFav = (id)=>{
         if (typeof onRemoveFavorite === "function") onRemoveFavorite(id);
@@ -47567,28 +47540,13 @@ function FavoriteMovies({ favoriteMovieList , onRemoveFavorite  }) {
                 children: "Favorite Movies"
             }, void 0, false, {
                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                lineNumber: 13,
+                lineNumber: 14,
                 columnNumber: 13
             }, this),
             favoriteMovieList.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                     children: [
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                            src: movie.ImagePath,
-                            alt: movie.Title
-                        }, void 0, false, {
-                            fileName: "src/components/profile-view/favorite-movies.jsx",
-                            lineNumber: 16,
-                            columnNumber: 21
-                        }, this),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                            to: `/movies/${movie._id}`,
-                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                                children: movie.Title
-                            }, void 0, false, {
-                                fileName: "src/components/profile-view/favorite-movies.jsx",
-                                lineNumber: 18,
-                                columnNumber: 25
-                            }, this)
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                            movie: movie
                         }, void 0, false, {
                             fileName: "src/components/profile-view/favorite-movies.jsx",
                             lineNumber: 17,
@@ -47596,23 +47554,23 @@ function FavoriteMovies({ favoriteMovieList , onRemoveFavorite  }) {
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                             variant: "secondary",
-                            onClick: ()=>removeFav(movie._id),
+                            onClick: ()=>removeFav(movie.id),
                             children: "Remove From List"
                         }, void 0, false, {
                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                            lineNumber: 20,
+                            lineNumber: 18,
                             columnNumber: 21
                         }, this)
                     ]
-                }, movie._id, true, {
+                }, movie.id, true, {
                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                    lineNumber: 15,
+                    lineNumber: 16,
                     columnNumber: 17
                 }, this))
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/favorite-movies.jsx",
-        lineNumber: 12,
+        lineNumber: 13,
         columnNumber: 9
     }, this);
 }
@@ -47626,7 +47584,7 @@ $RefreshReg$(_c, "FavoriteMovies");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2SBwg":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../movie-card/movie-card":"bwuIu"}],"2SBwg":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$95d1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
