@@ -46907,7 +46907,7 @@ const LoginView = ({ onLoggedIn  })=>{
             "Password": password
         };
         // send a POST request to the login endpoint with the data
-        fetch("http://moviepi24.herokuapp.com/login", {
+        fetch("https://moviepi24.herokuapp.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -47407,8 +47407,33 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
     const removeFav = (id)=>{
     // Handle removing favorite movie here
     };
+    // Handle user update
     const handleUpdate = (userObj)=>{
-    // Handle update logic
+        // Retrieve the stored token from localStorage
+        const storedToken = localStorage.getItem("token");
+        // Define headers for the request
+        const myHeaders = {
+            "Content-Type": "application/JSON",
+            Authorization: `Bearer ${storedToken}`
+        };
+        console.log({
+            userObj
+        });
+        // Handle update logic
+        // Perform the PUT request to update user information
+        fetch(`https://moviepi24.herokuapp.com/users/${username}`, {
+            method: "PUT",
+            headers: new Headers(myHeaders),
+            body: JSON.stringify(userObj)
+        }).then((res)=>res.json()).then((response)=>{
+            // Update the stored user information in localStorage
+            localStorage.setItem("user", JSON.stringify(response));
+            // Update state with the updated user information
+            setUsername(response.Username);
+            setPassword(response.Password);
+            setEmail(response.Email);
+            setUser(response);
+        });
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
@@ -47417,7 +47442,7 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 email: email
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 54,
+                lineNumber: 82,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -47426,20 +47451,20 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                         children: "Favorite Movies"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 57,
+                        lineNumber: 85,
                         columnNumber: 17
                     }, this),
                     favoriteMovieList.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                             movie: movie
                         }, movie.id, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 59,
+                            lineNumber: 87,
                             columnNumber: 21
                         }, this))
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 56,
+                lineNumber: 84,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateUserDefault.default), {
@@ -47448,13 +47473,13 @@ function ProfileView({ movies , onUpdatedUserInfo  }) {
                 handleUpdate: handleUpdate
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 63,
+                lineNumber: 91,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 53,
+        lineNumber: 81,
         columnNumber: 9
     }, this);
 }
