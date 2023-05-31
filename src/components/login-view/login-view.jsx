@@ -19,7 +19,7 @@ export const LoginView = ({ onLoggedIn }) => {
     };
 
     // send a POST request to the login endpoint with the data
-    fetch("http://moviepi24.herokuapp.com/login", {
+    fetch("https://moviepi24.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
