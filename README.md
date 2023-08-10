@@ -1,4 +1,4 @@
-**FlixInfo Client**
+**myFlix Client**
 
 **Overview**
 FlixInfo empowers users with the ability to explore and learn more about films. With personalized profiles, users have the liberty to highlight movies as favorites, as well as to unmark previously favored movies.
